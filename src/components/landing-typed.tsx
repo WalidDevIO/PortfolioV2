@@ -21,7 +21,7 @@ export const LandingTyped = () => {
 
     return (
         <div className="text-center">
-            <h2 className="text-2xl font-bold mb-4">I'm <span ref={text} />.</h2>
+            <h2 className="text-2xl font-bold mb-4">I&apos;m <span ref={text} />.</h2>
         </div>
     );
 };

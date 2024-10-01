@@ -59,7 +59,7 @@ export function GlobalCards({ cards }: { cards: Experience[] | Formation[] }) {
                                         {card.extraLinks.map((file, index) => !file.github ? (
                                             <Button key={index} asChild className="w-full"><Link href={file.url} target="_blank">{file.title}</Link></Button>  
                                         ) : (
-                                            <div className="flex flex-row gap-2 items-center">
+                                            <div key={index} className="flex flex-row gap-2 items-center">
                                                 <Github /><Button asChild className="w-full"><Link href={file.url} target="_blank">Voir sur GitHub</Link></Button>
                                             </div>
                                         ))}

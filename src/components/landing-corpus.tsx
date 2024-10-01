@@ -50,7 +50,7 @@ export default function LandingCorpus() {
                         <Separator className="my-2" />
                         <CardContent>
                             <p><strong>Master Informatique</strong></p>
-                            <p>Spécialisation en Technologie de l'Information et Ingénierie Logiciel</p>
+                            <p>Spécialisation en Technologie de l&apos;Information et Ingénierie Logiciel</p>
                             <div className="flex justify-center mt-4">
                                 <Button variant="outline">
                                     <Link href="/formations">En savoir plus sur mes formations !</Link>
