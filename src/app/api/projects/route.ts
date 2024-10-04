@@ -16,7 +16,7 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
     const supabase = createClientServer();
-    const { data, error } = await supabase.from("projects").select("*");
+    const { data, error } = await supabase.from("projects").select("*").order("created_at", { ascending: false });
     if (error) throw error;
     return NextResponse.json(data);
 }
