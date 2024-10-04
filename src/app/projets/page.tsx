@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Projet } from "@/types/projet";
 
 const getProjets = async () => {
-    const response = await fetch("/api/projets");
+    const response = await fetch("/api/projects");
     const data = await response.json();
     return data;
 }
