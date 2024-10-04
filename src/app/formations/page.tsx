@@ -1,8 +1,8 @@
-import { datas } from "@/datas/datas";
+import { getFormations } from "@/actions/api";
 import { GlobalCards } from "@/components/global/cards";
-export default function Formations() {
+export default async function Formations() {
 
-    const formations = datas.formations;
+    const formations = await getFormations();
     return (
         <div>
             <GlobalCards cards={formations} />

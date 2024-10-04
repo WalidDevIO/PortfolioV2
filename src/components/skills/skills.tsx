@@ -10,7 +10,7 @@ interface SkillsProps {
     skills: Skill[];
 }
 
-export default function Skills({title, skills}: SkillsProps) {
+export function Skills({title, skills}: SkillsProps) {
     return (
         <Card className="w-full max-w-md mx-auto">
             <CardHeader>

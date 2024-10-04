@@ -1,5 +1,7 @@
 import { Global } from "./global";
 
 export type Experience = Global & {
-    type: "Alternance" | "Stage" | "Contrat de travail";
+    type: ExperienceType;
 }
+
+export type ExperienceType = "Alternance" | "Stage" | "Contrat de travail";

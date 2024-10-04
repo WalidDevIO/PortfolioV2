@@ -1,13 +1,14 @@
-import Skills from "@/components/skills";
+import { Skills } from "@/components/skills/skills";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { getLandingLast, getSkills } from "@/actions/api";
 import Link from "next/link";
-import { datas } from "@/datas/datas";
 
-export default function LandingCorpus() {
+export default async function LandingCorpus() {
 
-    const skills = datas.skills;
+    const skills = await getSkills();
+    const { experience, formation, project } = await getLandingLast();
 
     return (
         <div>
@@ -19,8 +20,8 @@ export default function LandingCorpus() {
                         </CardHeader>
                         <Separator className="my-2" />
                         <CardContent>
-                            <p><strong>Développeur Full Stack</strong></p>
-                            <p>Alternance de 2ans chez Genavir</p>
+                            <p><strong>{experience.title}</strong></p>
+                            <p>{experience.landingDescription}</p>
                             <div className="flex justify-center mt-4">
                                 <Button variant="outline">
                                     <Link href="/experiences">En savoir plus sur mes expériences !</Link>
@@ -34,8 +35,8 @@ export default function LandingCorpus() {
                         </CardHeader>
                         <Separator className="my-2" />
                         <CardContent>
-                            <p><strong>Portfolio</strong></p>
-                            <p>Création de ce portfolio avec Next.js et TypeScript</p>
+                            <p><strong>{project.title}</strong></p>
+                            <p>{project.landingDescription}</p>
                             <div className="flex justify-center mt-4">
                                 <Button variant="outline" asChild>
                                     <Link href="/projets">En savoir plus sur mes projets !</Link>
@@ -49,8 +50,8 @@ export default function LandingCorpus() {
                         </CardHeader>
                         <Separator className="my-2" />
                         <CardContent>
-                            <p><strong>Master Informatique</strong></p>
-                            <p>Spécialisation en Technologie de l&apos;Information et Ingénierie Logiciel</p>
+                            <p><strong>{formation.title}</strong></p>
+                            <p>{formation.landingDescription}</p>
                             <div className="flex justify-center mt-4">
                                 <Button variant="outline">
                                     <Link href="/formations">En savoir plus sur mes formations !</Link>

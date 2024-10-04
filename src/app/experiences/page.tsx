@@ -1,8 +1,8 @@
-import { datas } from "@/datas/datas";
 import { GlobalCards } from "@/components/global/cards";
-export default function Experiences() {
+import { getExperiences } from "@/actions/api";
+export default async function Experiences() {
 
-    const experiences = datas.experiences;
+    const experiences = await getExperiences();
     return (
         <div>
             <GlobalCards cards={experiences} />

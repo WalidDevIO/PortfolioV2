@@ -1,6 +1,6 @@
-export type Skill = {
+export type Skill = ID &{
     name: string;
     description: string;
     level: number;
-    icon?: string;
+    created_at?: string;
 }

@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-import { ThemeProvider } from "@/components/theme-provider";
-import { ClientLayout } from "@/components/client-layout";
-import { Navbar } from "@/components/navbar";
-import { MaintenanceMode } from "@/components/maintenance-mode";
-import { ModeToggle } from "@/components/mode-toggle";
+import { ThemeProvider } from "@/components/general/theme-provider";
+import { ClientLayout } from "@/components/general/client-layout";
+import { Navbar } from "@/components/general/navbar";
+import { MaintenanceMode } from "@/components/general/maintenance-mode";
+import { ModeToggle } from "@/components/general/mode-toggle";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

@@ -7,13 +7,13 @@ import { Converter } from "showdown";
 import Link from "next/link";
 
 interface ProjetsCardsProps {
-    projets: Projet[];
+    projets: (Projet & { github?: string })[];
 }
 
 export function ProjetsCards({ projets }: ProjetsCardsProps) {
     const converter = new Converter();
     projets.map((p, idx) => {
-        projets[idx] = {...p, description: converter.makeHtml(p.description) }
+        projets[idx] = {...p, description: converter.makeHtml(p.description), github: p.extraLinks?.find((link) => link.github)?.url }
     })
     return (
         <div className="flex flex-wrap flex-row justify-center gap-4">
@@ -23,7 +23,7 @@ export function ProjetsCards({ projets }: ProjetsCardsProps) {
                         <Card className="w-48 h-48 flex flex-col flex flex-col justify-between">
                             <CardHeader>
                                 <div className="flex flex-row justify-between items-center">
-                                    <CardTitle className="text-md mr-1">{projet.title}</CardTitle>
+                                    <CardTitle className="text-sm mr-1">{projet.title}</CardTitle>
                                     <img
                                         src={projet.image}
                                         alt={projet.title}
@@ -56,10 +56,14 @@ export function ProjetsCards({ projets }: ProjetsCardsProps) {
                                             <span key={index}>{technology}</span>
                                         ))}
                                     </div>}
-                                    {projet.github && (
                                     <div className="flex flex-row gap-2 items-center">
-                                        <Github /><Button asChild className="w-full"><Link href={projet.github} target="_blank">Voir sur GitHub</Link></Button>
-                                    </div>)}
+                                        <Github />
+                                        <Button asChild={projet.github ? true : false} disabled={projet.github ? false : true} className="w-full">
+                                            <Link href={projet.github ?? "#"} target="_blank">
+                                                {projet.github ? "Voir sur GitHub" : "Code privé"}
+                                            </Link>
+                                        </Button>
+                                    </div>
                                 </div>
                             </DialogDescription>
                         </DialogHeader>

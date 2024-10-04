@@ -22,16 +22,15 @@ export function GlobalCards({ cards }: { cards: Experience[] | Formation[] }) {
                 <Dialog key={index}>
                     <DialogTrigger asChild>
                         <Card className="w-48 h-48 flex flex-col justify-center items-center">
-                            <CardContent className="flex flex-col items-center">
-                                <div className="flex flex-col items-center gap-2">
+                            <CardContent className="flex flex-col items-center pb-0">
+                                <div className="flex flex-col items-center gap-2 w-full">
                                     <img
                                         src={card.image}
                                         alt={card.title}
-                                        width={65}
-                                        height={65}
-                                        className="rounded-full object-cover top-2"
+                                        className="rounded-full object-cover top-2 w-[65px] h-[65px]"
+                                        style={{ objectFit: 'cover', objectPosition: 'center' }}
                                     />
-                                    <CardTitle className="text-md text-center">{card.title}</CardTitle>
+                                    <CardTitle className="text-sm text-center">{card.title}</CardTitle>
                                 </div>
                             </CardContent>
                         </Card>

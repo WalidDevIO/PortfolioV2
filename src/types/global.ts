@@ -1,4 +1,4 @@
-export type Global = {
+export type Global = ID & {
     duration: string;
     location: string;
     title: string;
@@ -10,4 +10,6 @@ export type Global = {
         url: string;
         github?: boolean;
     }[];
+    created_at?: string;
+    landingDescription: string;
 }

@@ -1,8 +1,8 @@
-import { ProjetsCards } from "@/components/projets/projets-cards";
-import {datas} from "@/datas/datas";
-export default function Projets() {
+import { ProjetsCards } from "@/components/projets/projets-cards"; 
+import { getProjects } from "@/actions/api";
+export default async function Projets() {
 
-    const projets = datas.projects;
+    const projets = await getProjects();
 
     return (
         <div>

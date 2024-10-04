@@ -1,5 +1,5 @@
-import { LandingTyped } from "@/components/landing-typed";
-import LandingCorpus from "@/components/landing-corpus";
+import { LandingTyped } from "@/components/landing/landing-typed";
+import LandingCorpus from "@/components/landing/landing-corpus";
 
 export default function Home() {
   return (
