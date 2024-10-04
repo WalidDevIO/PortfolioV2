@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Contact as ContactType } from "@/types/contact";
-
+import { Loader } from "@/components/general/loader";
 const getContact = async () => {
     const response = await fetch("/api/contact");
     const data = await response.json();
@@ -19,10 +19,15 @@ export default function Contact() {
         location: "",
         github: ""
     });
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        getContact().then(setContact);
+        getContact().then(setContact).finally(() => setLoading(false));
     }, []);
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
         <div>

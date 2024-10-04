@@ -3,7 +3,7 @@ import { createClientServer } from "@/lib/supabase";
 
 export async function GET() {
     const supabase = createClientServer();
-    const { data, error } = await supabase.from("contact").select("*");
+    const { data, error } = await supabase.from("contact").select("*").maybeSingle();
     if (error) {
         return NextResponse.error();
     }
