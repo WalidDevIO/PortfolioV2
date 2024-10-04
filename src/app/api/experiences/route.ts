@@ -15,3 +15,10 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(data);
 }
+
+export async function GET() {
+    const supabase = createClientServer();
+    const { data, error } = await supabase.from("experiences").select("*");
+    if (error) throw error;
+    return NextResponse.json(data);
+}

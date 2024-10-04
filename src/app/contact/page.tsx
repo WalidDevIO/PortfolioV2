@@ -1,32 +1,50 @@
+"use client"
+
 import { Button } from "@/components/ui/button";
-import { getContact } from "@/actions/api";
 import { Github, Linkedin, Mail } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Contact as ContactType } from "@/types/contact";
 
-export default async function Contact() {
+const getContact = async () => {
+    const response = await fetch("/api/contact");
+    const data = await response.json();
+    return data;
+}
 
-    const { mail, linkedin, location, github } = await getContact();
+export default function Contact() {
+
+    const [contact, setContact] = useState<ContactType>({
+        mail: "",
+        linkedin: "",
+        location: "",
+        github: ""
+    });
+
+    useEffect(() => {
+        getContact().then(setContact);
+    }, []);
 
     return (
         <div>
             <h1 className="text-3xl font-bold mb-6">Me Contacter</h1>
             <p className="mb-4">Je suis toujours ouvert aux nouvelles opportunités et collaborations. N&apos;hésitez pas à me contacter !</p>
             <div className="space-y-4">
-                <p><strong>Email :</strong> {mail}</p>
-                <p><strong>Localisation :</strong> {location}</p>
+                <p><strong>Email :</strong> {contact.mail}</p>
+                <p><strong>Localisation :</strong> {contact.location}</p>
             </div>
             <div className="mt-6 space-x-4">
                 <Button asChild>
-                    <a href={`mailto:${mail}`}>
+                    <a href={`mailto:${contact.mail}`}>
                         <Mail className="mr-2 h-4 w-4" /> Contactez-moi maintenant !
                     </a>
                 </Button>
                 <Button asChild>
-                    <a href={linkedin} target="_blank" rel="noopener noreferrer">
+                    <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">
                         <Linkedin className="mr-2 h-4 w-4" /> Connectons-nous !
                     </a>
                 </Button>
                 <Button asChild>
-                    <a href={github} target="_blank" rel="noopener noreferrer">
+                    <a href={contact.github} target="_blank" rel="noopener noreferrer">
                         <Github className="mr-2 h-4 w-4" /> Découvrez mes projets !
                     </a>
                 </Button>

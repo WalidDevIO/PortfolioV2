@@ -1,12 +1,52 @@
-import { getExperiences, getFormations, getProjects, getSkills } from "@/actions/api";
+"use client"
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-export default async function Dashboard() {
-    const skills = await getSkills()
-    const projects = await getProjects()
-    const experiences = await getExperiences()
-    const formations = await getFormations()
+import { useState, useEffect } from "react";
+import { Skill } from "@/types/skill";
+import { Projet } from "@/types/projet";
+import { Experience } from "@/types/experience";
+import { Formation } from "@/types/formation";
+import { Loader } from "@/components/general/loader";
+
+const getSkills = async () => {
+    const res = await fetch('/api/skills')
+    return res.json()
+}
+
+const getProjects = async () => {
+    const res = await fetch('/api/projects')
+    return res.json()
+}
+
+const getExperiences = async () => {
+    const res = await fetch('/api/experiences')
+    return res.json()
+}
+
+const getFormations = async () => {
+    const res = await fetch('/api/formations')
+    return res.json()
+}
+
+export default function Dashboard() {
+    const [skills, setSkills] = useState<Skill[]>([])
+    const [projects, setProjects] = useState<Projet[]>([])
+    const [experiences, setExperiences] = useState<Experience[]>([])
+    const [formations, setFormations] = useState<Formation[]>([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        Promise.all([getSkills(), getProjects(), getExperiences(), getFormations()]).then(([skills, projects, experiences, formations]) => {
+            setSkills(skills)
+            setProjects(projects)
+            setExperiences(experiences)
+            setFormations(formations)
+        }).finally(() => setLoading(false))
+    }, [])
+
+    if (loading) return <Loader />
 
     return (
         <div className="container mx-auto mt-8">
