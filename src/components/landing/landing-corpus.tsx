@@ -10,6 +10,7 @@ import { Skill } from "@/types/skill";
 import { Experience } from "@/types/experience";
 import { Projet } from "@/types/projet";
 import { Formation } from "@/types/formation";
+import { Loader } from "@/components/general/loader";
 
 const getSkills = async () => {
     const response = await fetch("/api/skills");
@@ -43,7 +44,7 @@ export default function LandingCorpus() {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loader />;
     }
 
     return (
