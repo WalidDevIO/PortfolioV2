@@ -7,7 +7,7 @@ import { MapPin, CalendarDays, Github } from "lucide-react";
 import { Experience } from "@/types/experience";
 import { Formation } from "@/types/formation";
 import React from "react";
-
+import Image from "next/image";
 export function GlobalCards({ cards }: { cards: Experience[] | Formation[] }) {
 
     const isFormation = (card: Experience | Formation): card is Formation => (card as Formation).speciality !== undefined;
@@ -24,9 +24,11 @@ export function GlobalCards({ cards }: { cards: Experience[] | Formation[] }) {
                         <Card className="w-48 h-48 flex flex-col justify-center items-center">
                             <CardContent className="flex flex-col items-center pb-0">
                                 <div className="flex flex-col items-center gap-2 w-full">
-                                    <img
+                                    <Image
                                         src={card.image}
                                         alt={card.title}
+                                        width={65}
+                                        height={65}
                                         className="rounded-full object-cover top-2 w-[65px] h-[65px]"
                                         style={{ objectFit: 'cover', objectPosition: 'center' }}
                                     />

@@ -29,7 +29,9 @@ export function FormationForm({ formation, onSubmit }: FormationFormProps) {
         } else if(data.speciality === ""){
             setError("La spécialité est obligatoire");
         } else {
-            onSubmit ? onSubmit(data) : null;
+            if(onSubmit) {
+                onSubmit(data);
+            }
         }
     }
 
@@ -116,7 +118,7 @@ export function FormationForm({ formation, onSubmit }: FormationFormProps) {
                             name="landingDescription"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Description pour l'accueil</FormLabel>
+                                    <FormLabel>Description pour l&apos;accueil</FormLabel>
                                     <FormControl>
                                         <Textarea {...field} />
                                     </FormControl>

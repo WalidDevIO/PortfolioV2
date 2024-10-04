@@ -1,3 +1,3 @@
-type ID = {
+export type ID = {
     id?: number;
 }

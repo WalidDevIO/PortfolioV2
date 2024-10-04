@@ -9,7 +9,7 @@ import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface SkillFormProps {
     skill: Skill;
@@ -27,7 +27,9 @@ export function SkillForm({ skill, onSubmit }: SkillFormProps) {
         if(data.name === "" || data.description === "") {
             setError("Le nom et la description ne peuvent pas être vides");
         } else {
-            onSubmit ? onSubmit(data) : null;
+            if(onSubmit) {
+                onSubmit(data);
+            }
         }
     }
 

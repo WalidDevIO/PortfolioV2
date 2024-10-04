@@ -17,10 +17,10 @@ export default function EditFormationPage({ params }: { params: { id: number } }
         fetch(`/api/formations/${params.id}`).then(r => {
             if (r.ok) return r.json()
             else throw new Error("Erreur lors de la récupération de la formation");
-        }).then(setFormation).catch(e => {
+        }).then(setFormation).catch(() => {
             router.push("/admin/dashboard");
         }).finally(() => setLoading(false));
-    }, [params.id]);
+    }, [params.id, router]);
 
     const handleSubmit = async (data: Formation) => {
         const response = await fetch(`/api/formations/${params.id}`, {

@@ -9,7 +9,7 @@ export default async function Contact() {
     return (
         <div>
             <h1 className="text-3xl font-bold mb-6">Me Contacter</h1>
-            <p className="mb-4">Je suis toujours ouvert aux nouvelles opportunités et collaborations. N'hésitez pas à me contacter !</p>
+            <p className="mb-4">Je suis toujours ouvert aux nouvelles opportunités et collaborations. N&apos;hésitez pas à me contacter !</p>
             <div className="space-y-4">
                 <p><strong>Email :</strong> {mail}</p>
                 <p><strong>Localisation :</strong> {location}</p>

@@ -1,3 +1,5 @@
+import { ID } from "./id";
+
 export type Global = ID & {
     duration: string;
     location: string;

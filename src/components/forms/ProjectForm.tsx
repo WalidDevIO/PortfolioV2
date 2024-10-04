@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
@@ -28,7 +28,9 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
         } else if (data.littleDescription === "") {
             setError("La description de carte est obligatoire");
         } else {
-            onSubmit ? onSubmit(data) : null;
+            if(onSubmit) {
+                onSubmit(data);
+            }
         }
     }
 
@@ -115,7 +117,7 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
                             name="landingDescription"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Description pour l'accueil</FormLabel>
+                                    <FormLabel>Description pour l&apos;accueil</FormLabel>
                                     <FormControl>
                                         <Textarea {...field} />
                                     </FormControl>

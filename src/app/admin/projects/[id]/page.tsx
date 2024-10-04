@@ -17,10 +17,10 @@ export default function EditProjectPage({ params }: { params: { id: number } }) 
         fetch(`/api/projects/${params.id}`).then(r => {
             if (r.ok) return r.json()
             else throw new Error("Erreur lors de la récupération du projet");
-        }).then(setProject).catch(e => {
+        }).then(setProject).catch(() => {
             router.push("/admin/dashboard");
         }).finally(() => setLoading(false));
-    }, [params.id]);
+    }, [params.id, router]);
 
     const handleSubmit = async (data: Projet) => {
         const response = await fetch(`/api/projects/${params.id}`, {

@@ -1,7 +1,6 @@
 import { checkAuth } from "@/auth/auth";
 import { createClientServer } from "@/lib/supabase";
 import { NextRequest, NextResponse } from "next/server";
-import { Experience } from "@/types/experience";
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
     const supabase = createClientServer();

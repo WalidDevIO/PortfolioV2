@@ -1,8 +1,8 @@
 import { createClientServer } from "@/lib/supabase";
 import { checkAuth } from "@/auth/auth";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
+export async function POST() {
     const supabase = createClientServer();
 
     const auth = await checkAuth(supabase);

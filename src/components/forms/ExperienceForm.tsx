@@ -30,7 +30,9 @@ export function ExperienceForm({experience, onSubmit}: ExperienceFormProps) {
         } else if(data.type !== "Alternance" && data.type !== "Stage" && data.type !== "Contrat de travail") {
             setError("Le type de contrat est invalide");
         } else {
-            onSubmit ? onSubmit(data) : null;
+            if(onSubmit) {
+                onSubmit(data);
+            }
         }
     }
 
@@ -117,7 +119,7 @@ export function ExperienceForm({experience, onSubmit}: ExperienceFormProps) {
                             name="landingDescription"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Description pour l'accueil</FormLabel>
+                                    <FormLabel>Description pour l&apos;accueil</FormLabel>
                                     <FormControl>
                                         <Textarea {...field} />
                                     </FormControl>

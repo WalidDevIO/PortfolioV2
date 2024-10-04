@@ -18,10 +18,10 @@ export default function EditSkillPage({ params }: { params: { id: number } }) {
         fetch(`/api/skills/${params.id}`).then(r => {
             if(r.ok) return r.json()
             else throw new Error("Erreur lors de la récupération de la compétence");
-        }).then(setSkill).catch(e => {
+        }).then(setSkill).catch(() => {
             router.push("/admin/dashboard");
         }).finally(() => setLoading(false));
-    }, [params.id]);
+    }, [params.id, router]);
 
     const handleSubmit = async (data: Skill) => {
         const response = await fetch(`/api/skills/${params.id}`, {

@@ -17,10 +17,10 @@ export default function EditExperiencePage({ params }: { params: { id: number } 
         fetch(`/api/experiences/${params.id}`).then(r => {
             if (r.ok) return r.json()
             else throw new Error("Erreur lors de la récupération de l'expérience");
-        }).then(setExperience).catch(e => {
+        }).then(setExperience).catch(() => {
             router.push("/admin/dashboard");
         }).finally(() => setLoading(false));
-    }, [params.id]);
+    }, [params.id, router]);
 
     const handleSubmit = async (data: Experience) => {
         const response = await fetch(`/api/experiences/${params.id}`, {

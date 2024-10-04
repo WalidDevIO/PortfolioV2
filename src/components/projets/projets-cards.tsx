@@ -5,7 +5,7 @@ import { MapPin, CalendarDays, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Converter } from "showdown";
 import Link from "next/link";
-
+import Image from "next/image";
 interface ProjetsCardsProps {
     projets: (Projet & { github?: string })[];
 }
@@ -13,7 +13,7 @@ interface ProjetsCardsProps {
 export function ProjetsCards({ projets }: ProjetsCardsProps) {
     const converter = new Converter();
     projets.map((p, idx) => {
-        projets[idx] = {...p, description: converter.makeHtml(p.description), github: p.extraLinks?.find((link) => link.github)?.url }
+        projets[idx] = {...p, description: converter.makeHtml(p.description), github: p.extraLinks?.find((link: { github?: boolean, url: string, title: string }) => link.github)?.url }
     })
     return (
         <div className="flex flex-wrap flex-row justify-center gap-4">
@@ -24,12 +24,12 @@ export function ProjetsCards({ projets }: ProjetsCardsProps) {
                             <CardHeader>
                                 <div className="flex flex-row justify-between items-center">
                                     <CardTitle className="text-sm mr-1">{projet.title}</CardTitle>
-                                    <img
+                                    <Image
                                         src={projet.image}
                                         alt={projet.title}
                                         width={45}
                                         height={45}
-                                        className="relative rounded-full object-cover"
+                                        className="relative rounded-full object-cover w-[45px] h-[45px]"
                                     />
                                 </div>
                             </CardHeader>
