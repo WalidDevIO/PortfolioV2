@@ -37,14 +37,14 @@ export default function Contact() {
                 <p><strong>Email :</strong> {contact.mail}</p>
                 <p><strong>Localisation :</strong> {contact.location}</p>
             </div>
-            <div className="mt-6 space-x-4">
+            <div className="mt-6 flex flex-col sm:flex-row gap-4">
                 <Button asChild>
-                    <a href={`mailto:${contact.mail}`}>
+                    <a className="w-full" href={`mailto:${contact.mail}`}>
                         <Mail className="mr-2 h-4 w-4" /> Contactez-moi maintenant !
                     </a>
                 </Button>
                 <Button asChild>
-                    <a href={contact.linkedin} target="_blank" rel="noopener noreferrer">
+                    <a className="w-full" href={contact.linkedin} target="_blank" rel="noopener noreferrer">
                         <Linkedin className="mr-2 h-4 w-4" /> Connectons-nous !
                     </a>
                 </Button>

@@ -103,3 +103,7 @@ body {
 .prose-ol ol li {
   margin-left: 1rem;
 }
+
+[data-vaul-drawer][data-vaul-drawer-direction="bottom"]::after {
+  height: 0 !important;
+}
