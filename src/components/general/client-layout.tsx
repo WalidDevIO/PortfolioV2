@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from "react";
-import StarrySky from "./starry-sky";
+import { StarrySky } from "./starry-sky";
 
 export function ClientLayout({ children }: PropsWithChildren) {
     return (

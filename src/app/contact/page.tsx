@@ -1,33 +1,17 @@
-"use client"
-
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail } from "lucide-react";
-import { useEffect, useState } from "react";
-import { Contact as ContactType } from "@/types/contact";
-import { Loader } from "@/components/general/loader";
-const getContact = async () => {
-    const response = await fetch("/api/contact");
-    const data = await response.json();
-    return data;
+import { getContact } from "@/actions/getContact"
+
+interface ContactInfo {
+    mail: string;
+    github: string;
+    location: string;
+    linkedin: string;
 }
 
-export default function Contact() {
+export default async function Contact() {
 
-    const [contact, setContact] = useState<ContactType>({
-        mail: "",
-        linkedin: "",
-        location: "",
-        github: ""
-    });
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        getContact().then(setContact).finally(() => setLoading(false));
-    }, []);
-
-    if (loading) {
-        return <Loader />;
-    }
+    const contact: ContactInfo = await getContact()
 
     return (
         <div>
@@ -43,12 +27,12 @@ export default function Contact() {
                         <Mail className="mr-2 h-4 w-4" /> Contactez-moi maintenant !
                     </a>
                 </Button>
-                <Button asChild>
+                <Button variant="outline" asChild>
                     <a className="w-full" href={contact.linkedin} target="_blank" rel="noopener noreferrer">
                         <Linkedin className="mr-2 h-4 w-4" /> Connectons-nous !
                     </a>
                 </Button>
-                <Button asChild>
+                <Button variant="outline" asChild>
                     <a href={contact.github} target="_blank" rel="noopener noreferrer">
                         <Github className="mr-2 h-4 w-4" /> Découvrez mes projets !
                     </a>

@@ -5,7 +5,7 @@ import { tsParticles } from '@tsparticles/engine';
 import { useTheme } from 'next-themes';
 import { useEffect } from 'react';
 
-export default function StarrySky() {
+export function StarrySky() {
     const { theme } = useTheme();
 
     useEffect(() => {

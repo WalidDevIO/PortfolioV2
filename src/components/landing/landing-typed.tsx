@@ -7,7 +7,7 @@ export const LandingTyped = () => {
     const text = useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
-        const typed = new Typed(text.current, {
+        const typed: Typed = new Typed(text.current, {
             strings: ["Passionate", "Self-taught", "Web expert", "Full-stack developer", "Advanced programmer", "Curiosity-driven", "Innovator"],
             typeSpeed: 50,
             backSpeed: 50,

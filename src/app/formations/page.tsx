@@ -1,26 +1,10 @@
-"use client"
-
 import { GlobalCards } from "@/components/ui/cards";
-import { Loader } from "@/components/general/loader";
-import { useEffect, useState } from "react";
 import { Formation } from "@/types/formation";
+import { getFormations } from "@/actions/getFormations";
 
-const getFormations = async () => {
-    const response = await fetch("/api/formations");
-    const data = await response.json();
-    return data;
-}
+export default async function Formations() {
 
-export default function Formations() {
-
-    const [formations, setFormations] = useState<Formation[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    useEffect(() => {
-        getFormations().then(setFormations);
-        setLoading(false);
-    }, []);
-
-    if(loading) return <Loader />;
+    const formations: Formation[] = await getFormations()
 
     return (
         <div>
