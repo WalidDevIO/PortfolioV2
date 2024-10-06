@@ -10,22 +10,26 @@ import { Formation } from "@/types/formation";
 import { Projet } from "@/types/projet";
 import Link from "next/link";
 import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { Link as LinkType } from "@/types/global";
 
-interface GlobalCardsProps {
-    cards: (Experience | Formation | Projet & { github?: string })[];
+type CardType = Experience | Formation | Projet & { github?: string };
+
+interface CardsProps {
+    cards: CardType[];
 }
 
-export function GlobalCards({ cards }: GlobalCardsProps) {
+export function GlobalCards({ cards }: CardsProps) {
 
-    const isFormation = (card: Experience | Formation | Projet): card is Formation => (card as Formation).speciality !== undefined;
-    const isExperience = (card: Experience | Formation | Projet): card is Experience => (card as Experience).type !== undefined;
-    const isProjet = (card: Experience | Formation | Projet): card is Projet => (card as Projet).littleDescription !== undefined;
+    const isFormation = (card: CardType): card is Formation => (card as Formation).speciality !== undefined;
+    const isExperience = (card: CardType): card is Experience => (card as Experience).type !== undefined;
+    const isProjet = (card: CardType): card is Projet => (card as Projet).littleDescription !== undefined;
 
     const converter = new Converter();
-    cards.map((c, idx) => {
+    cards.forEach((c, idx) => {
         cards[idx] = { ...c, description: converter.makeHtml(c.description) }
         if (isProjet(c)) {
-            cards[idx] = { ...c, github: c.extraLinks?.find((link: { github?: boolean, url: string, title: string }) => link.github)?.url }
+            cards[idx] = { ...c, github: c.extraLinks?.find((link: LinkType) => link.github)?.url }
         }
     })
     return (
@@ -34,8 +38,8 @@ export function GlobalCards({ cards }: GlobalCardsProps) {
                 <Credenza key={index}>
                     <CredenzaTrigger asChild>
                         <Card className="w-48 h-48 flex flex-col justify-center items-center">
-                            <CardContent className="flex flex-col items-center pb-0">
-                                <div className="flex flex-col items-center gap-2 w-full">
+                            <CardContent className={cn("flex flex-col items-center p-0 h-full gap-3", isProjet(card) ? "mt-8" : "mt-10")}>
+                                <div className="flex flex-col items-center gap-3 w-full">
                                     <Image
                                         src={card.image}
                                         alt={card.title}
@@ -46,6 +50,7 @@ export function GlobalCards({ cards }: GlobalCardsProps) {
                                     />
                                     <CardTitle className="text-sm text-center">{card.title}</CardTitle>
                                 </div>
+                                {isProjet(card) && card.littleDescription && <CredenzaDescription className="text-sm text-center">{card.littleDescription}</CredenzaDescription>}
                             </CardContent>
                         </Card>
                     </CredenzaTrigger>

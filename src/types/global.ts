@@ -7,11 +7,13 @@ export type Global = ID & {
     description: string;
     image: string;
     technologies?: string[];
-    extraLinks?: {
-        title: string;
-        url: string;
-        github?: boolean;
-    }[];
+    extraLinks?: Link[];
     created_at?: string;
     landingDescription: string;
+}
+
+export type Link = {
+    title: string;
+    url: string;
+    github?: boolean;
 }
