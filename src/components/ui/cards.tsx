@@ -29,7 +29,7 @@ export function GlobalCards({ cards }: CardsProps) {
     cards.forEach((c, idx) => {
         cards[idx] = { ...c, description: converter.makeHtml(c.description) }
         if (isProjet(c)) {
-            cards[idx] = { ...c, github: c.extraLinks?.find((link: LinkType) => link.github)?.url }
+            cards[idx] = { ...cards[idx], github: c.extraLinks?.find((link: LinkType) => link.github)?.url }
         }
     })
     return (
@@ -56,8 +56,8 @@ export function GlobalCards({ cards }: CardsProps) {
                     </CredenzaTrigger>
                     <CredenzaContent className="flex flex-col">
                         <CredenzaHeader>
-                            <CredenzaTitle className="flex flex-row flex-wrap justify-around items-center mb-1">
-                                <h1>{card.title}</h1>
+                            <CredenzaTitle className="flex flex-row flex-wrap justify-around items-center mb-4">
+                                {card.title}
                                 <Image
                                     src={card.image}
                                     alt={card.title}
@@ -67,18 +67,15 @@ export function GlobalCards({ cards }: CardsProps) {
                                 />
                             </CredenzaTitle>
                             <CredenzaDescription asChild>
-                                <div className="flex flex-col gap-4 mt-4">
-                                    {isFormation(card) ? <div className="flex flex-row gap-2 justify-center items-center font-bold text-center">
-                                        {card.speciality}
-                                    </div> : null}
-                                    {isExperience(card) ? <div className="flex flex-row gap-2 justify-center items-center font-bold">
-                                        {card.type}
+                                <div className="flex flex-col gap-4 text-sm">
+                                    {isFormation(card) || isExperience(card) ? <div className="flex flex-row gap-2 justify-center items-center font-bold text-center">
+                                        <Badge>{isFormation(card) ? card.speciality : isExperience(card) ? card.type : null}</Badge>
                                     </div> : null}
                                     <div className="flex flex-row gap-2 justify-center items-center font-bold">
-                                        <MapPin />{card.location}
+                                        <MapPin /><Badge>{card.location}</Badge>
                                     </div>
                                     <div className="flex flex-row gap-2 justify-center items-center font-bold">
-                                        <CalendarDays />{card.duration}
+                                        <CalendarDays /><Badge>{card.duration}</Badge>
                                     </div>
                                 </div>
                             </CredenzaDescription>
