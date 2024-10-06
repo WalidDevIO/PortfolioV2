@@ -36,7 +36,7 @@ export function Navbar() {
     ];
 
     return (
-        <header className="flex justify-between items-center mb-4">
+        <header className="flex justify-between items-center m-4 mb-8">
             <DropdownMenu open={open} onOpenChange={setOpen}>
                 <DropdownMenuTrigger className="sm:hidden" asChild>
                     <Button>Menu</Button>

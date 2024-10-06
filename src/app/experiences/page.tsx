@@ -1,6 +1,6 @@
 "use client"
 
-import { GlobalCards } from "@/components/global/cards";
+import { GlobalCards } from "@/components/ui/cards";
 import { Loader } from "@/components/general/loader";
 import { useEffect, useState } from "react";
 import { Experience } from "@/types/experience";

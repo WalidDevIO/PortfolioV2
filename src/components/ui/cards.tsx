@@ -1,0 +1,125 @@
+import { Converter } from "showdown";
+import { MapPin, CalendarDays, Github } from "lucide-react";
+import { Credenza, CredenzaTrigger, CredenzaContent, CredenzaHeader, CredenzaTitle, CredenzaDescription, CredenzaBody } from "@/components/ui/credenza";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { Experience } from "@/types/experience";
+import { Formation } from "@/types/formation";
+import { Projet } from "@/types/projet";
+import Link from "next/link";
+import Image from "next/image";
+
+interface GlobalCardsProps {
+    cards: (Experience | Formation | Projet & { github?: string })[];
+}
+
+export function GlobalCards({ cards }: GlobalCardsProps) {
+
+    const isFormation = (card: Experience | Formation | Projet): card is Formation => (card as Formation).speciality !== undefined;
+    const isExperience = (card: Experience | Formation | Projet): card is Experience => (card as Experience).type !== undefined;
+    const isProjet = (card: Experience | Formation | Projet): card is Projet => (card as Projet).littleDescription !== undefined;
+
+    const converter = new Converter();
+    cards.map((c, idx) => {
+        cards[idx] = { ...c, description: converter.makeHtml(c.description) }
+        if (isProjet(c)) {
+            cards[idx] = { ...c, github: c.extraLinks?.find((link: { github?: boolean, url: string, title: string }) => link.github)?.url }
+        }
+    })
+    return (
+        <div className="flex flex-wrap flex-row justify-center gap-4">
+            {cards.map((card, index) => (
+                <Credenza key={index}>
+                    <CredenzaTrigger asChild>
+                        <Card className="w-48 h-48 flex flex-col justify-center items-center">
+                            <CardContent className="flex flex-col items-center pb-0">
+                                <div className="flex flex-col items-center gap-2 w-full">
+                                    <Image
+                                        src={card.image}
+                                        alt={card.title}
+                                        width={65}
+                                        height={65}
+                                        className="rounded-full object-cover top-2 w-[65px] h-[65px]"
+                                        style={{ objectFit: 'cover', objectPosition: 'center' }}
+                                    />
+                                    <CardTitle className="text-sm text-center">{card.title}</CardTitle>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </CredenzaTrigger>
+                    <CredenzaContent className="flex flex-col">
+                        <CredenzaHeader>
+                            <CredenzaTitle className="flex flex-row flex-wrap justify-around items-center mb-1">
+                                <h1>{card.title}</h1>
+                                <Image
+                                    src={card.image}
+                                    alt={card.title}
+                                    width={45}
+                                    height={45}
+                                    className="relative rounded-full object-cover w-[45px] h-[45px]"
+                                />
+                            </CredenzaTitle>
+                            <CredenzaDescription asChild>
+                                <div className="flex flex-col gap-4 mt-4">
+                                    {isFormation(card) ? <div className="flex flex-row gap-2 justify-center items-center font-bold text-center">
+                                        {card.speciality}
+                                    </div> : null}
+                                    {isExperience(card) ? <div className="flex flex-row gap-2 justify-center items-center font-bold">
+                                        {card.type}
+                                    </div> : null}
+                                    <div className="flex flex-row gap-2 justify-center items-center font-bold">
+                                        <MapPin />{card.location}
+                                    </div>
+                                    <div className="flex flex-row gap-2 justify-center items-center font-bold">
+                                        <CalendarDays />{card.duration}
+                                    </div>
+                                </div>
+                            </CredenzaDescription>
+                        </CredenzaHeader>
+                        <Separator className="mb-1" />
+                        <CredenzaBody>
+                            <div dangerouslySetInnerHTML={{ __html: card.description }} className="prose-ul prose-ol mb-4" />
+                            {card.technologies && (
+                                <div className="flex flex-col gap-4 mb-4">
+                                    <span className="text-center font-bold">Technologies :</span>
+                                    <div className="flex flex-wrap gap-2 justify-center">
+                                        {card.technologies.map((technology, index) => (
+                                            <Badge key={index}>
+                                                {technology}
+                                            </Badge>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
+                            {card.technologies && card.extraLinks && card.extraLinks.length > 0 && card.technologies.length > 0 && <Separator className="mb-2"/>}
+                            {
+                                !isProjet(card) ? card.extraLinks &&
+                                    <div className="flex flex-col items-center gap-4 my-2">
+                                        {card.extraLinks.map((file, index) => !file.github ? (
+                                            <Button key={index} asChild className="w-full"><Link href={file.url} target="_blank">{file.title}</Link></Button>
+                                        ) : (
+                                            <div key={index} className="w-full flex flex-row gap-2 items-center">
+                                                <Button asChild className="w-full"><Link href={file.url} target="_blank"><Github className="mr-2" />Voir sur GitHub</Link></Button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                :
+                                    <div className="flex flex-row gap-2 items-center my-2">
+                                        <Button asChild={card.github ? true : false} disabled={card.github ? false : true} className="w-full">
+                                            <Link href={card.github ?? "#"} target="_blank">
+                                                <span className="flex flex-row gap-2 justify-center items-center">
+                                                    <Github />{card.github ? "Voir sur GitHub" : "Code privé"}
+                                                </span>
+                                            </Link>
+                                        </Button>
+                                    </div>
+                            }
+                        </CredenzaBody>
+                    </CredenzaContent>
+                </Credenza>
+            ))}
+        </div>
+    )
+}

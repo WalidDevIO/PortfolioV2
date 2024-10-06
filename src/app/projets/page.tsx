@@ -1,6 +1,6 @@
 "use client"
 
-import { ProjetsCards } from "@/components/projets/projets-cards";
+import { GlobalCards } from "@/components/ui/cards";
 import { Loader } from "@/components/general/loader";
 import { useEffect, useState } from "react";
 import { Projet } from "@/types/projet";
@@ -25,7 +25,7 @@ export default function Projets() {
 
     return (
         <div>
-            <ProjetsCards projets={projets} />
+            <GlobalCards cards={projets} />
         </div>
     );
 }
