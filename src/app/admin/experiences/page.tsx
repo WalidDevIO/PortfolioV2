@@ -2,7 +2,6 @@
 
 import { Experience, ExperienceType } from "@/types/experience";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { ExperienceForm } from "@/components/forms/ExperienceForm";
 
 export default function AddExperiencePage() {
@@ -21,7 +20,6 @@ export default function AddExperiencePage() {
 
     const [error, setError] = useState<string>("");
     const [success, setSuccess] = useState<string>("");
-    const router = useRouter();
 
     const handleSubmit = async (data: Experience) => {
         const response = await fetch("/api/experiences", {

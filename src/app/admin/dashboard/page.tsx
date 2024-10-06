@@ -110,7 +110,7 @@ export default function Dashboard() {
                                                     <DialogHeader>
                                                         <DialogTitle>Êtes-vous sûr de vouloir supprimer {isSkill(entry) ? entry.name : entry.title} ?</DialogTitle>
                                                         <DialogDescription>
-                                                            Cette action est irréversible. L'élément sera définitivement supprimé.
+                                                            Cette action est irréversible. L&apos;élément sera définitivement supprimé.
                                                         </DialogDescription>
                                                     </DialogHeader>
                                                     <DialogFooter className="flex flex-row gap-2">

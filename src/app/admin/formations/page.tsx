@@ -3,7 +3,6 @@
 import { FormationForm } from "@/components/forms/FormationForm";
 import { Formation } from "@/types/formation";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function AddFormationPage() {
 
@@ -21,7 +20,6 @@ export default function AddFormationPage() {
 
     const [error, setError] = useState<string>("");
     const [success, setSuccess] = useState<string>("");
-    const router = useRouter();
 
     const handleSubmit = async (data: Formation) => {
         const response = await fetch("/api/formations", {

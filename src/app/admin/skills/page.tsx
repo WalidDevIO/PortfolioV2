@@ -3,7 +3,6 @@
 import { SkillForm } from "@/components/forms/SkillForm";
 import { Skill } from "@/types/skill";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function AddSkillPage() {
 
@@ -15,7 +14,6 @@ export default function AddSkillPage() {
 
     const [error, setError] = useState<string>("");
     const [success, setSuccess] = useState<string>("");
-    const router = useRouter();
     
     const handleSubmit = async (data: Skill) => {
         const response = await fetch("/api/skills", {

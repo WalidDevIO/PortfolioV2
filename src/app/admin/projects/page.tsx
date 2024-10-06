@@ -3,7 +3,6 @@
 import { ProjectForm } from "@/components/forms/ProjectForm";
 import { Projet } from "@/types/projet";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 export default function AddProjectPage() {
 
@@ -21,7 +20,6 @@ export default function AddProjectPage() {
 
     const [error, setError] = useState<string>("");
     const [success, setSuccess] = useState<string>("");
-    const router = useRouter();
 
     const handleSubmit = async (data: Projet) => {
         const response = await fetch("/api/projects", {
