@@ -32,15 +32,6 @@ const getFormations = async () => {
     return res.json()
 }
 
-const deleteEntry = async (item: string, id?: number) => {
-    if(!id) return
-    const res = await fetch(`/api/${item}/${id}`, { method: "DELETE" })
-    if(res.ok) {
-        window.location.reload()
-    }
-    return res.json()
-}
-
 interface DataEntry<T> {
     title: string
     entries: T[]
@@ -64,6 +55,21 @@ export default function Dashboard() {
     })
     const [loading, setLoading] = useState<boolean>(true)
 
+    const deleteEntry = async (item: keyof DashboardData, id?: number) => {
+        if (!id) return
+        const res = await fetch(`/api/${item}/${id}`, { method: "DELETE" })
+        if (res.ok) {
+            setData({
+                ...data,
+                [item]: {
+                    title: data[item].title,
+                    entries: data[item].entries.filter((entry: Skill | Projet | Experience | Formation) => entry.id !== id)
+                }
+            })
+        }
+        return res.json()
+    }
+
     useEffect(() => {
         Promise.all([getSkills(), getProjects(), getExperiences(), getFormations()])
             .then(([skills, projects, experiences, formations]) => {
@@ -84,7 +90,10 @@ export default function Dashboard() {
         <div className="container mx-auto mt-8">
             <div className="flex justify-between items-center mb-8">
                 <h1 className="text-xl sm:text-4xl font-bold">Tableau de bord</h1>
-                <Button asChild><Link href="/admin/logout">Déconnecter</Link></Button>
+                <div className="flex flex-row gap-2">
+                    <Button variant="outline" asChild><Link href="/admin/files">Fichiers</Link></Button>
+                    <Button asChild><Link href="/admin/logout">Déconnecter</Link></Button>
+                </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-6">
                 {(Object.entries(data) as DashboardDataEntry[]).map(([item, value]: DashboardDataEntry) => (
