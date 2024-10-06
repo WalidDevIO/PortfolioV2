@@ -1,7 +1,6 @@
 "use client"
 
 import { SkillForm } from "@/components/forms/SkillForm";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Skill } from "@/types/skill";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -31,9 +30,6 @@ export default function EditSkillPage({ params }: { params: { id: number } }) {
 
         if (response.ok) {
             setSuccess("Compétence modifiée avec succès");
-            setTimeout(() => {
-                router.push("/admin/dashboard");
-            }, 1000);
         } else {
             setError("Erreur lors de la modification du skill");
         }
@@ -44,19 +40,7 @@ export default function EditSkillPage({ params }: { params: { id: number } }) {
 
         :
         <div className="w-full flex flex-col justify-center items-center mt-8 gap-4">
-            {error && (
-                <Alert>
-                    <AlertTitle>Erreur</AlertTitle>
-                    <AlertDescription>{error}</AlertDescription>
-                </Alert>
-            )}
-            {success && (
-                <Alert>
-                    <AlertTitle>Succès</AlertTitle>
-                    <AlertDescription>{success}</AlertDescription>
-                </Alert>
-            )}
-            <SkillForm skill={skill} onSubmit={handleSubmit} />
+            <SkillForm skill={skill} onSubmit={handleSubmit} flash={{ error: error, success: success }} />
         </div>
     );
 }

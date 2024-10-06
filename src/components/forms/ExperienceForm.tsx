@@ -1,8 +1,9 @@
 "use client"
 
 import { Experience } from "@/types/experience"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { Flash } from "@/components/forms/flash";
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
@@ -13,16 +14,21 @@ import { Alert, AlertTitle, AlertDescription } from "../ui/alert";
 
 interface ExperienceFormProps {
     experience: Experience,
-    onSubmit?: (data: Experience) => void
+    onSubmit?: (data: Experience) => void,
+    flash: {
+        error: string,
+        success: string,
+    },
 }
 
-export function ExperienceForm({experience, onSubmit}: ExperienceFormProps) { 
+export function ExperienceForm({experience, onSubmit, flash}: ExperienceFormProps) { 
 
     const form = useForm<Experience>({
         defaultValues: experience,
     });
-    const [error, setError] = useState<string>("");
 
+    const [error, setError] = useState<string>("");
+    const [success, setSuccess] = useState<string>("");
     const handleSubmit = (data: Experience) => {
         setError("");
         if(data.title === "" || data.duration === "" || data.location === "" || data.description === "" || data.image === "" || data.landingDescription === "") {
@@ -36,7 +42,13 @@ export function ExperienceForm({experience, onSubmit}: ExperienceFormProps) {
         }
     }
 
-    return (
+    useEffect(() => {
+        setError(flash.error);
+        setSuccess(flash.success);
+    }, [flash]);
+
+    return (<>
+        <Flash error={error} success={success} />
         <Card className="w-full max-w-2xl">
             <CardHeader>
                 <CardTitle>{experience.id ? "Modifier" : "Ajouter"} une expérience</CardTitle>
@@ -259,5 +271,5 @@ export function ExperienceForm({experience, onSubmit}: ExperienceFormProps) {
                 </Form>
             </CardContent>
         </Card>
-    )
+    </>)
 }

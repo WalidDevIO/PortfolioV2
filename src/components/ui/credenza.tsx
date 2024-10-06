@@ -75,7 +75,7 @@ const CredenzaContent = ({ className, children, ...props }: CredenzaProps) => {
     const CredenzaContent = isDesktop ? DialogContent : DrawerContent
 
     return (
-        <CredenzaContent className={cn(className, "supports-[height:100cqh]:max-h-[100cqh] supports-[height:100svh]:max-h-[100svh]")} {...props}>
+        <CredenzaContent className={cn(className, "supports-[height:80cqh]:max-h-[80cqh] supports-[height:80svh]:max-h-[80svh]")} {...props}>
             {children}
         </CredenzaContent>
     )
@@ -120,7 +120,7 @@ const CredenzaTitle = ({ className, children, ...props }: CredenzaProps) => {
 
 const CredenzaBody = ({ className, children, ...props }: CredenzaProps) => {
     return (
-        <div className={cn("px-4 md:px-0 overflow-y-auto", className)} {...props}>
+        <div className={cn("p-4 md:py-0 md:px-0 overflow-y-auto", className)} {...props}>
             {children}
         </div>
     )

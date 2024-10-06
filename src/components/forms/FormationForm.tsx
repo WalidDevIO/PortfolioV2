@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
@@ -8,20 +8,27 @@ import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { Alert, AlertTitle, AlertDescription } from "../ui/alert";
+import { Flash } from "@/components/forms/flash";
 import { Formation } from "@/types/formation";
 
 interface FormationFormProps {
     formation: Formation,
     onSubmit?: (data: Formation) => void
+    flash: {
+        error: string,
+        success: string,
+    }
 }
 
-export function FormationForm({ formation, onSubmit }: FormationFormProps) {
+export function FormationForm({ formation, onSubmit, flash }: FormationFormProps) {
 
     const form = useForm<Formation>({
         defaultValues: formation,
     });
-    const [error, setError] = useState<string>("");
 
+    const [error, setError] = useState<string>("");
+    const [success, setSuccess] = useState<string>("");
+    
     const handleSubmit = (data: Formation) => {
         setError("");
         if (data.title === "" || data.duration === "" || data.location === "" || data.description === "" || data.image === "" || data.landingDescription === "") {
@@ -35,7 +42,14 @@ export function FormationForm({ formation, onSubmit }: FormationFormProps) {
         }
     }
 
+    useEffect(() => {
+        setError(flash.error);
+        setSuccess(flash.success);
+    }, [flash]);
+
     return (
+        <>
+        <Flash error={error} success={success} />
         <Card className="w-full max-w-2xl">
             <CardHeader>
                 <CardTitle>{formation.id ? "Modifier" : "Ajouter"} une formation</CardTitle>
@@ -257,6 +271,6 @@ export function FormationForm({ formation, onSubmit }: FormationFormProps) {
                     </form>
                 </Form>
             </CardContent>
-        </Card>
+        </Card></>
     )
 }

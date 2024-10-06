@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
@@ -9,17 +9,24 @@ import { Textarea } from "../ui/textarea";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { Alert, AlertTitle, AlertDescription } from "../ui/alert";
 import { Projet } from "@/types/projet";
+import { Flash } from "@/components/forms/flash";
 
 interface ProjectFormProps {
     project: Projet,
     onSubmit?: (data: Projet) => void
+    flash: {
+        error: string,
+        success: string,
+    }
 }
 
-export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
+export function ProjectForm({ project, onSubmit, flash }: ProjectFormProps) {
     const form = useForm<Projet>({
         defaultValues: project,
     });
+
     const [error, setError] = useState<string>("");
+    const [success, setSuccess] = useState<string>("");
 
     const handleSubmit = (data: Projet) => {
         setError("");
@@ -34,7 +41,13 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
         }
     }
 
-    return (
+    useEffect(() => {
+        setError(flash.error);
+        setSuccess(flash.success);
+    }, [flash]);
+
+    return (<>
+        <Flash error={error} success={success} />
         <Card className="w-full max-w-2xl">
             <CardHeader>
                 <CardTitle>{project.id ? "Modifier" : "Ajouter"} un projet</CardTitle>
@@ -256,6 +269,6 @@ export function ProjectForm({ project, onSubmit }: ProjectFormProps) {
                     </form>
                 </Form>
             </CardContent>
-        </Card>
+        </Card></>
     )
 }

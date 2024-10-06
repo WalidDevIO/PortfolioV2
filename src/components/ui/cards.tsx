@@ -83,7 +83,7 @@ export function GlobalCards({ cards }: CardsProps) {
                         <Separator className="mb-1" />
                         <CredenzaBody>
                             <div dangerouslySetInnerHTML={{ __html: card.description }} className="prose-ul prose-ol mb-4" />
-                            {card.technologies && (
+                            {card.technologies && card.technologies.length > 0 && (
                                 <div className="flex flex-col gap-4 mb-4">
                                     <span className="text-center font-bold">Technologies :</span>
                                     <div className="flex flex-wrap gap-2 justify-center">
@@ -97,7 +97,7 @@ export function GlobalCards({ cards }: CardsProps) {
                             )}
                             {card.technologies && card.extraLinks && card.extraLinks.length > 0 && card.technologies.length > 0 && <Separator className="mb-2"/>}
                             {
-                                !isProjet(card) ? card.extraLinks &&
+                                !isProjet(card) ? card.extraLinks && card.extraLinks.length > 0 &&
                                     <div className="flex flex-col items-center gap-4 my-2">
                                         {card.extraLinks.map((file, index) => !file.github ? (
                                             <Button key={index} asChild className="w-full"><Link href={file.url} target="_blank">{file.title}</Link></Button>

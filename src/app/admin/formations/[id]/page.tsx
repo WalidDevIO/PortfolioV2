@@ -1,6 +1,5 @@
 "use client"
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Formation } from "@/types/formation";
@@ -32,9 +31,6 @@ export default function EditFormationPage({ params }: { params: { id: number } }
 
         if (response.ok) {
             setSuccess("Expérience modifiée avec succès");
-            setTimeout(() => {
-                router.push("/admin/dashboard");
-            }, 1000);
         } else {
             setError("Erreur lors de la modification de l'expérience");
         }
@@ -45,19 +41,7 @@ export default function EditFormationPage({ params }: { params: { id: number } }
 
         :
         <div className="w-full flex flex-col justify-center items-center mt-8 gap-4">
-            {error && (
-                <Alert>
-                    <AlertTitle>Erreur</AlertTitle>
-                    <AlertDescription>{error}</AlertDescription>
-                </Alert>
-            )}
-            {success && (
-                <Alert>
-                    <AlertTitle>Succès</AlertTitle>
-                    <AlertDescription>{success}</AlertDescription>
-                </Alert>
-            )}
-            <FormationForm formation={formation} onSubmit={handleSubmit} />
+            <FormationForm formation={formation} onSubmit={handleSubmit} flash={{ error: error, success: success }} />
         </div>
     );
 }

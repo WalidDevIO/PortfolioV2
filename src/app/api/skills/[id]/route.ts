@@ -25,3 +25,14 @@ export async function GET(request: NextRequest, { params }: { params: { id: numb
     if (error) throw error;
     return NextResponse.json(data);
 }
+
+export async function DELETE(request: NextRequest, { params }: { params: { id: number } }) {
+    const supabase = createClientServer();
+    const auth = await checkAuth(supabase);
+    if(auth) {
+        return auth;
+    }
+    const { data, error } = await supabase.from("skills").delete().eq("id", params.id);
+    if (error) throw error;
+    return NextResponse.json(data);
+}

@@ -1,7 +1,6 @@
 "use client"
 
 import { ProjectForm } from "@/components/forms/ProjectForm";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Projet } from "@/types/projet";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -32,9 +31,6 @@ export default function AddProjectPage() {
 
         if (response.ok) {
             setSuccess("Projet ajouté avec succès");
-            setTimeout(() => {
-                router.push("/admin/dashboard");
-            }, 1000);
         } else {
             setError("Erreur lors de l'ajout du projet");
         }
@@ -42,19 +38,7 @@ export default function AddProjectPage() {
 
     return (
         <div className="w-full flex flex-col justify-center items-center mt-8 gap-4">
-            {error && (
-                <Alert>
-                    <AlertTitle>Erreur</AlertTitle>
-                    <AlertDescription>{error}</AlertDescription>
-                </Alert>
-            )}
-            {success && (
-                <Alert>
-                    <AlertTitle>Succès</AlertTitle>
-                    <AlertDescription>{success}</AlertDescription>
-                </Alert>
-            )}
-            <ProjectForm project={project} onSubmit={handleSubmit} />
+            <ProjectForm project={project} onSubmit={handleSubmit} flash={{ error: error, success: success }} />
         </div>
     );
 }

@@ -1,6 +1,5 @@
 "use client"
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Projet } from "@/types/projet";
@@ -32,9 +31,6 @@ export default function EditProjectPage({ params }: { params: { id: number } }) 
 
         if (response.ok) {
             setSuccess("Projet modifié avec succès");
-            setTimeout(() => {
-                router.push("/admin/dashboard");
-            }, 1000);
         } else {
             setError("Erreur lors de la modification du projet");
         }
@@ -45,19 +41,7 @@ export default function EditProjectPage({ params }: { params: { id: number } }) 
 
         :
         <div className="w-full flex flex-col justify-center items-center mt-8 gap-4">
-            {error && (
-                <Alert>
-                    <AlertTitle>Erreur</AlertTitle>
-                    <AlertDescription>{error}</AlertDescription>
-                </Alert>
-            )}
-            {success && (
-                <Alert>
-                    <AlertTitle>Succès</AlertTitle>
-                    <AlertDescription>{success}</AlertDescription>
-                </Alert>
-            )}
-            <ProjectForm project={project} onSubmit={handleSubmit} />
+            <ProjectForm project={project} onSubmit={handleSubmit} flash={{ error: error, success: success }} />
         </div>
     );
 }

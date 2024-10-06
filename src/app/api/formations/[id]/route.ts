@@ -25,3 +25,14 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     if (error) throw error;
     return NextResponse.json(data);
 }
+
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+    const supabase = createClientServer();
+    const auth = await checkAuth(supabase);
+    if(auth) {
+        return auth;
+    }
+    const { data, error } = await supabase.from("formations").delete().eq("id", params.id);
+    if (error) throw error;
+    return NextResponse.json(data);
+}

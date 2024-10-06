@@ -9,19 +9,25 @@ import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Flash } from "@/components/forms/flash";
 
 interface SkillFormProps {
     skill: Skill;
     onSubmit?: (data: Skill) => void;
+    flash: {
+        error: string,
+        success: string,
+    }
 }
 
-export function SkillForm({ skill, onSubmit }: SkillFormProps) {
+export function SkillForm({ skill, onSubmit, flash }: SkillFormProps) {
     const form = useForm<Skill>({
         defaultValues: skill,
     });
 
     const [error, setError] = useState<string>("");
+    const [success, setSuccess] = useState<string>("");
 
     const handleSubmit = (data: Skill) => {
         if(data.name === "" || data.description === "") {
@@ -33,7 +39,14 @@ export function SkillForm({ skill, onSubmit }: SkillFormProps) {
         }
     }
 
+    useEffect(() => {
+        setError(flash.error);
+        setSuccess(flash.success);
+    }, [flash]);
+
     return (
+        <>
+        <Flash error={error} success={success} />
         <Card className="w-full max-w-md">
             <CardHeader>
                 <CardTitle>{skill.id ? "Modifier" : "Ajouter"} une compétence</CardTitle>
@@ -95,5 +108,6 @@ export function SkillForm({ skill, onSubmit }: SkillFormProps) {
                 </Form>
             </CardContent>
         </Card>
+        </>
     );
 }
