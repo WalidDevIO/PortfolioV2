@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger, DialogClose } from "@/components/ui/dialog";
-import { Trash2 } from "lucide-react";
+import { Trash2, Plus } from "lucide-react";
 import { Loader } from "@/components/general/loader";
+import Link from "next/link";
 
 interface File {
   id: string;
@@ -22,7 +23,7 @@ export function FileList() {
 
   const fetchFiles = async () => {
     try {
-      const response = await fetch("/api/file");
+      const response = await fetch("/api/files");
       if (!response.ok) throw new Error("Erreur lors de la récupération des fichiers");
       const { data } = await response.json();
       setFiles(data);
@@ -35,7 +36,7 @@ export function FileList() {
 
   const handleDelete = async (name: string) => {
     try {
-        const response = await fetch(`/api/file/${name}`, {
+        const response = await fetch(`/api/files/${name}`, {
             method: "DELETE",
         });
         if (!response.ok) throw new Error("Erreur lors de la suppression du fichier");
@@ -48,9 +49,10 @@ export function FileList() {
   if (loading) return <div className="flex justify-center items-center"><Loader /></div>;
 
   return (
-    <Card>
+    <Card className="w-full">
       <CardHeader>
-        <CardTitle>Liste des fichiers</CardTitle>
+        <CardTitle className="text-center">Liste des fichiers</CardTitle>
+        <Button asChild><Link href="/admin/files/upload"><Plus className="mr-2" />Ajouter un fichier</Link></Button>
       </CardHeader>
       <CardContent>
         <ul className="space-y-2">

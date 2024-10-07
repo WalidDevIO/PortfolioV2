@@ -1,3 +1,4 @@
+import { getFormations } from "@/actions/getFormations";
 import { checkAuth } from "@/auth/auth";
 import { createClientServer } from "@/lib/supabase";
 import { NextRequest, NextResponse } from "next/server";
@@ -15,8 +16,5 @@ export async function POST(request: NextRequest) {
 }
 
 export async function GET() {
-    const supabase = createClientServer();
-    const { data, error } = await supabase.from("formations").select("*").order("created_at", { ascending: false });
-    if (error) throw error;
-    return NextResponse.json(data);
+    return NextResponse.json(await getFormations());
 }

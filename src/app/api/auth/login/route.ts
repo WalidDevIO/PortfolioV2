@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (error) {
-        return NextResponse.json({ error: error.message }, { status: 400 });
+        return NextResponse.json({ error: "Identifiant ou mot de passe incorrect" }, { status: 400 });
     }
 
     return NextResponse.json({ user: data.user, session: data.session });

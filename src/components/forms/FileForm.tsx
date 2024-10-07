@@ -43,7 +43,7 @@ export function FileForm() {
       formData.append("fileName", values.fileName);
       formData.append("file", values.file);
 
-      const response = await fetch("/api/file", {
+      const response = await fetch("/api/files", {
         method: "POST",
         body: formData,
       });

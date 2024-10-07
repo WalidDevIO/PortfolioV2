@@ -45,7 +45,7 @@ export async function GET() {
         return auth;
     }
 
-    const { data, error } = (await supabase.storage.from('files').list());
+    const { data, error } = await supabase.storage.from('files').list();
     if (error) {
         return NextResponse.json({ error: 'Error fetching files' }, { status: 500 })
     }
