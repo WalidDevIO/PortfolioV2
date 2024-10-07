@@ -1,3 +1,5 @@
+"use client"
+
 import { Skills } from "@/components/skills/skills";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,10 +8,9 @@ import { Skill } from "@/types/skill";
 import { Experience } from "@/types/experience";
 import { Projet } from "@/types/projet";
 import { Formation } from "@/types/formation";
-import { getLast } from "@/actions/getLast";
-import { getSkills } from "@/actions/getSkills";
-import { getLandingText } from "@/actions/getLandingText";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { Skeleton } from "../ui/skeleton";
 
 type Last = {
     lastExperience: Experience;
@@ -17,21 +18,47 @@ type Last = {
     lastFormation: Formation;
 }
 
-export async function LandingCorpus() {
-    const last: Last = await getLast()
-    const landingText: string = await getLandingText()
-    const skills: Skill[] = await getSkills()
+export function LandingCorpus() {
+    const fetchData = async () => {
+        const response = await fetch("/api/home");
+        const data = await response.json();
+        return data;
+    }
+
+    const [last, setLast] = useState<Last | null>(null);
+    const [landingText, setLandingText] = useState<string | null>(null);
+    const [skills, setSkills] = useState<Skill[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        fetchData().then((data) => {
+            setLast(data.last);
+            setLandingText(data.landingText);
+            setSkills(data.skills);
+            setLoading(false);
+        });
+    }, []);
+
+    const dataLoaded = last && landingText && skills;
 
     return (
         <>
             <div className="w-full">
                 <div>
-                    <div className="text-sm mb-4" dangerouslySetInnerHTML={{ __html: landingText }} />
+                    {loading || !dataLoaded ? <Skeleton className="h-24 w-full" /> : <div className="text-sm mb-4" dangerouslySetInnerHTML={{ __html: landingText }} />}
                 </div>
             </div>
-            <div>
+            <div className="w-full">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-4">
+                        {loading || !dataLoaded ? 
+                        <>
+                            <Skeleton className="h-1/3 w-full" /> 
+                            <Skeleton className="h-1/3 w-full" /> 
+                            <Skeleton className="h-1/3 w-full" /> 
+                        </> 
+                        :
+                        <>
                         <Card>
                             <CardHeader>
                                 <CardTitle>Dernière expérience</CardTitle>
@@ -76,10 +103,12 @@ export async function LandingCorpus() {
                                     </Button>
                                 </div>
                             </CardContent>
-                        </Card>
+                            </Card>
+                        </>
+                        }
                     </div>
-                <Skills title="Compétences informatiques" skills={skills} />
-            </div>
+                    <Skills title="Compétences informatiques" skills={skills} loading={loading} />
+                </div>
             </div>
         </>
     )
