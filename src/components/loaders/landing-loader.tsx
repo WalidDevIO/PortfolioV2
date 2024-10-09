@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 
 export const LandingLoader = () => {
     return (
-        <div className="w-full">
+        <div className="w-full flex flex-col items-center gap-8">
             <div>
                 <Skeleton className="h-24 w-full" />
             </div>
