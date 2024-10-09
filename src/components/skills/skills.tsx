@@ -4,20 +4,16 @@ import { Progress } from "@/components/ui/progress";
 import { Skill } from "@/types/skill";
 import { Badge } from "@/components/ui/badge";
 import React from "react";
-import { Skeleton } from "../ui/skeleton";
 
 interface SkillsProps {
     title: string;
     skills: Skill[];
-    loading: boolean;
 }
 
-export function Skills({title, skills, loading}: SkillsProps) {
+export function Skills({title, skills}: SkillsProps) {
 
     return (
         <Card className="w-full max-w-md mx-auto">
-            {loading ? <Skeleton className="h-96 w-full" /> :
-            <>
             <CardHeader>
                 <CardTitle><span className="flex items-center text-xl font-bold">{title}</span></CardTitle>
             </CardHeader>
@@ -39,8 +35,6 @@ export function Skills({title, skills, loading}: SkillsProps) {
                     ))}
                 </div>
             </CardContent>
-            </>
-            }
         </Card>
     );
 }

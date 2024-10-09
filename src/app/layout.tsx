@@ -3,12 +3,11 @@ import localFont from "next/font/local";
 import "./globals.css";
 
 import { ThemeProvider } from "@/components/general/theme-provider";
-//import { ClientLayout } from "@/components/general/client-layout";
+import { ClientLayout } from "@/components/general/client-layout";
 import { Navbar } from "@/components/general/navbar";
 import { MaintenanceMode } from "@/components/general/maintenance-mode";
 import { ModeToggle } from "@/components/general/mode-toggle";
 import { pathname } from "next-extra/pathname";
-import { getMetadata } from "@/actions/getMetadata";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -21,15 +20,9 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  const metadata = await getMetadata() as { title: string, description: string };
-  return {
-    title: metadata.title,
-    description: metadata.description,
-    icons: {
-      icon: "/favicon.ico",
-    },
-  }
+export const metadata: Metadata = {
+  title: "Portfolio - Walid EL OUAZIZI",
+  description: "Portfolio de Walid EL OUAZIZI",
 }
 
 export default function RootLayout({
@@ -46,7 +39,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          {/* <ClientLayout> */}
+          <ClientLayout>
             <div className="flex flex-col min-h-screen p-2 sm:p-4 md:p-8 max-w-full w-full font-[family-name:var(--font-geist-sans)]">
               { maintenance ? <ModeToggle /> : <Navbar /> }
               <main className="flex-grow flex flex-col items-center justify-center gap-8">
@@ -56,7 +49,7 @@ export default function RootLayout({
                 EL OUAZIZI Walid - 2024 ©
               </footer>
             </div>
-          {/* </ClientLayout> */}
+          </ClientLayout>
         </ThemeProvider>
       </body>
     </html>
