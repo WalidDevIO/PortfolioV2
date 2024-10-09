@@ -1,12 +1,12 @@
-"use client"
-
 import { GlobalCards } from "@/components/ui/cards";
 import { Projet } from "@/types/projet";
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
+import { getProjects } from "@/actions/getProjects";
 
-export default function Projets() {
+export default async function Projets() {
+    const projets: Projet[] = await getProjects();
 
-    const getProjects = async (): Promise<Projet[]> => {
+    /*const getProjects = async (): Promise<Projet[]> => {
         const projects = await fetch('/api/projects');
         const data = await projects.json();
         return data as Projet[];
@@ -22,11 +22,11 @@ export default function Projets() {
             setLoading(false);
         };
         fetchProjects();
-    }, []);
+    }, []);*/
 
     return (
         <div>
-            <GlobalCards cards={projets} loading={loading} />
+            <GlobalCards cards={projets} loading={false} />
         </div>
     );
 }
