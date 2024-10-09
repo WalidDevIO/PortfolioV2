@@ -1,64 +1,29 @@
-"use client"
-
 import { Skills } from "@/components/skills/skills";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Skill } from "@/types/skill";
-import { Experience } from "@/types/experience";
-import { Projet } from "@/types/projet";
-import { Formation } from "@/types/formation";
-import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Skeleton } from "../ui/skeleton";
 
-type Last = {
-    lastExperience: Experience;
-    lastProject: Projet;
-    lastFormation: Formation;
-}
+import { getSkills } from "@/actions/getSkills";
+import { getLast } from "@/actions/getLast";
+import { getLandingText } from "@/actions/getLandingText";
 
-export function LandingCorpus() {
-    const fetchData = async () => {
-        const response = await fetch("/api/home");
-        const data = await response.json();
-        return data;
-    }
+export async function LandingCorpus() {
 
-    const [last, setLast] = useState<Last | null>(null);
-    const [landingText, setLandingText] = useState<string | null>(null);
-    const [skills, setSkills] = useState<Skill[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-
-    useEffect(() => {
-        fetchData().then((data) => {
-            setLast(data.last);
-            setLandingText(data.landingText);
-            setSkills(data.skills);
-            setLoading(false);
-        });
-    }, []);
-
-    const dataLoaded = last && landingText && skills;
+    const skills = await getSkills();
+    const last = await getLast();
+    const landingText = await getLandingText();
 
     return (
         <>
             <div className="w-full">
                 <div>
-                    {loading || !dataLoaded ? <Skeleton className="h-24 w-full" /> : <div className="text-sm mb-4" dangerouslySetInnerHTML={{ __html: landingText }} />}
+                    <div className="text-sm mb-4" dangerouslySetInnerHTML={{ __html: landingText }} />
                 </div>
             </div>
             <div className="w-full">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-4">
-                        {loading || !dataLoaded ? 
-                        <>
-                            <Skeleton className="h-1/3 w-full" /> 
-                            <Skeleton className="h-1/3 w-full" /> 
-                            <Skeleton className="h-1/3 w-full" /> 
-                        </> 
-                        :
-                        <>
                         <Card>
                             <CardHeader>
                                 <CardTitle>Dernière expérience</CardTitle>
@@ -104,10 +69,8 @@ export function LandingCorpus() {
                                 </div>
                             </CardContent>
                             </Card>
-                        </>
-                        }
                     </div>
-                    <Skills title="Compétences informatiques" skills={skills} loading={loading} />
+                    <Skills title="Compétences informatiques" skills={skills} />
                 </div>
             </div>
         </>

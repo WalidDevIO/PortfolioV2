@@ -3,7 +3,6 @@ import { MapPin, CalendarDays, Github } from "lucide-react";
 import { Credenza, CredenzaTrigger, CredenzaContent, CredenzaHeader, CredenzaTitle, CredenzaDescription, CredenzaBody } from "@/components/ui/credenza";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Experience } from "@/types/experience";
@@ -16,21 +15,16 @@ import { Link as LinkType } from "@/types/global";
 
 type CardType = Experience | Formation | Projet & { github?: string };
 
-interface CardsProps {
+interface GlobalCardsProps {
     cards: CardType[];
-    loading: boolean;
 }
 
-export function GlobalCards({ cards, loading }: CardsProps) {
+export function GlobalCards({ cards }: GlobalCardsProps) {
 
     const isFormation = (card: CardType): card is Formation => (card as Formation).speciality !== undefined;
     const isExperience = (card: CardType): card is Experience => (card as Experience).type !== undefined;
     const isProjet = (card: CardType): card is Projet => (card as Projet).littleDescription !== undefined;
-
-    if (loading) {
-        return <div className="flex flex-wrap flex-row justify-center gap-4">{Array.from({ length: 6 }).map((_, index) => <Skeleton key={index} className="w-48 h-48" />)}</div>
-    }
-
+    
     const converter = new Converter();
     cards.forEach((c, idx) => {
         cards[idx] = { ...c, description: converter.makeHtml(c.description) }

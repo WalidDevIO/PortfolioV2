@@ -8,7 +8,6 @@ import { Navbar } from "@/components/general/navbar";
 import { MaintenanceMode } from "@/components/general/maintenance-mode";
 import { ModeToggle } from "@/components/general/mode-toggle";
 import { pathname } from "next-extra/pathname";
-import { getMetadata } from "@/actions/getMetadata";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -21,15 +20,9 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const generateMetadata = async (): Promise<Metadata> => {
-  const metadata = await getMetadata() as { title: string, description: string };
-  return {
-    title: metadata.title,
-    description: metadata.description,
-    icons: {
-      icon: "/favicon.ico",
-    },
-  }
+export const metadata: Metadata = {
+  title: "Portfolio - Walid EL OUAZIZI",
+  description: "Portfolio de Walid EL OUAZIZI",
 }
 
 export default function RootLayout({
