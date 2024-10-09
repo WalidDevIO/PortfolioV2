@@ -16,16 +16,14 @@ import { Link as LinkType } from "@/types/global";
 type CardType = Experience | Formation | Projet & { github?: string };
 
 interface GlobalCardsProps {
-    fetchCards: () => Promise<(Experience | Formation | Projet)[]>;
+    cards: CardType[];
 }
 
-export async function GlobalCards({ fetchCards }: GlobalCardsProps) {
+export function GlobalCards({ cards }: GlobalCardsProps) {
 
     const isFormation = (card: CardType): card is Formation => (card as Formation).speciality !== undefined;
     const isExperience = (card: CardType): card is Experience => (card as Experience).type !== undefined;
     const isProjet = (card: CardType): card is Projet => (card as Projet).littleDescription !== undefined;
-
-    const cards = await fetchCards() as CardType[];
     
     const converter = new Converter();
     cards.forEach((c, idx) => {

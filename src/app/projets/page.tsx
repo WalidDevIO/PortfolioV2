@@ -1,13 +1,12 @@
-import { GlobalCards } from "@/components/ui/cards";
-import { getProjects } from "@/actions/getProjects";
 import { Suspense } from "react";
 import CardsLoader from "@/components/loaders/cards-loader";
+import ProjetsCard from "./component";
 
 export default function Projets() {
     return (
         <div>
             <Suspense fallback={<CardsLoader />}>
-                <GlobalCards fetchCards={getProjects} />
+                <ProjetsCard />
             </Suspense>
         </div>
     );

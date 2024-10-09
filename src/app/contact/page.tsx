@@ -35,7 +35,6 @@ export default function Contact() {
             setLoading(false);
         };
         fetchContact();
-        console.log("contact");
     }, []);
 
     return (
