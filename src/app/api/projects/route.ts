@@ -1,7 +1,6 @@
 import { createClientServer } from "@/lib/supabase";
 import { checkAuth } from "@/auth/auth";
 import { NextRequest, NextResponse } from "next/server";
-import { getProjects } from "@/actions/getProjects";
 
 export async function POST(request: NextRequest) {
     const supabase = createClientServer();

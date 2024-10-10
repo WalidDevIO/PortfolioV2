@@ -1,4 +1,3 @@
-import { getFormations } from "@/actions/getFormations";
 import { checkAuth } from "@/auth/auth";
 import { createClientServer } from "@/lib/supabase";
 import { NextRequest, NextResponse } from "next/server";

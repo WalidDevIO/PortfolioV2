@@ -1,4 +1,3 @@
-import { getExperiences } from "@/actions/getExperiences";
 import { checkAuth } from "@/auth/auth";
 import { createClientServer } from "@/lib/supabase";
 import { NextRequest, NextResponse } from "next/server";

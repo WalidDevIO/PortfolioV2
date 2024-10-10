@@ -89,7 +89,7 @@ export function FileForm() {
             <FormField
               control={form.control}
               name="file"
-              render={({ field: { value, onChange, ...rest } }) => (
+              render={({ field: { value: _value, onChange, ...rest } }) => (
                 <FormItem>
                   <FormLabel>Fichier</FormLabel>
                   <FormControl>
