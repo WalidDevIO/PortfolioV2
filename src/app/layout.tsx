@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 
 import { ThemeProvider } from "@/components/general/theme-provider";
-import { ClientLayout } from "@/components/general/client-layout";
 import { Navbar } from "@/components/general/navbar";
 import { MaintenanceMode } from "@/components/general/maintenance-mode";
 import { ModeToggle } from "@/components/general/mode-toggle";
@@ -39,17 +38,15 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <ClientLayout>
-            <div className="flex flex-col min-h-screen p-2 sm:p-4 md:p-8 max-w-full w-full font-[family-name:var(--font-geist-sans)]">
-              { maintenance ? <ModeToggle /> : <Navbar /> }
-              <main className="flex-grow flex flex-col items-center justify-center gap-8">
-                {maintenance && !pathname().startsWith("/admin") ? <MaintenanceMode /> : children}
-              </main>
-              <footer className="mt-8 text-center">
-                EL OUAZIZI Walid - 2024 ©
-              </footer>
-            </div>
-          </ClientLayout>
+          <div className="flex flex-col min-h-screen p-2 sm:p-4 md:p-8 max-w-full w-full font-[family-name:var(--font-geist-sans)]">
+            { maintenance ? <ModeToggle /> : <Navbar /> }
+            <main className="flex-grow flex flex-col items-center justify-center gap-8">
+              {maintenance && !pathname().startsWith("/admin") ? <MaintenanceMode /> : children}
+            </main>
+            <footer className="mt-8 text-center">
+              EL OUAZIZI Walid - 2024 ©
+            </footer>
+          </div>
         </ThemeProvider>
       </body>
     </html>
