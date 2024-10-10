@@ -44,7 +44,7 @@ export function Navbar() {
                 <DropdownMenuContent>
                     {routes.map((route: { name: string; href: string }) => (
                         <DropdownMenuItem key={route.name}>
-                            <Link prefetch onClick={() => setOpen(false)} href={route.href} className={`text-sm font-medium transition-colors hover:text-primary ${pathname === route.href ? 'text-primary' : 'text-muted-foreground'}`}>
+                            <Link onClick={() => setOpen(false)} href={route.href} className={`text-sm font-medium transition-colors hover:text-primary ${pathname === route.href ? 'text-primary' : 'text-muted-foreground'}`}>
                                 {route.name}
                             </Link>
                         </DropdownMenuItem>
@@ -56,7 +56,7 @@ export function Navbar() {
                     {routes.map((route) => (
                         <NavigationMenuItem key={route.name}>
                             <NavigationMenuLink asChild>
-                                <Link prefetch href={route.href} className={`text-sm font-medium transition-colors hover:text-primary ${pathname === route.href ? 'text-primary' : 'text-muted-foreground'}`}>
+                                <Link href={route.href} className={`text-sm font-medium transition-colors hover:text-primary ${pathname === route.href ? 'text-primary' : 'text-muted-foreground'}`}>
                                     {route.name}
                                 </Link>
                             </NavigationMenuLink>
