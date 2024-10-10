@@ -1,13 +1,14 @@
-import { Suspense } from "react";
 import { CardsLoader } from "@/components/loaders/cards-loader";
-import { FormationsCards } from "@/components/formations/formations-cards";
+import dynamic from "next/dynamic";
+
+const FormationsCards = dynamic(async () => (await import("@/components/formations/formations-cards")).FormationsCards, {
+    loading: () => <CardsLoader />
+})
 
 export default function Formations() {
     return (
         <div>
-            <Suspense fallback={<CardsLoader />}>
-                <FormationsCards />
-            </Suspense>
+            <FormationsCards />
         </div>
     );
 }

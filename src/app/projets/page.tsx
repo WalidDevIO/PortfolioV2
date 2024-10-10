@@ -1,13 +1,14 @@
-import { Suspense } from "react";
 import { CardsLoader } from "@/components/loaders/cards-loader";
-import { ProjectsCards } from "@/components/projects/projects-cards";
+import dynamic from "next/dynamic";
+
+const ProjectsCards = dynamic(async () => (await import("@/components/projects/projects-cards")).ProjectsCards, {
+    loading: () => <CardsLoader />
+})
 
 export default function Projets() {
     return (
         <div>
-            <Suspense fallback={<CardsLoader />}>
-                <ProjectsCards />
-            </Suspense>
+            <ProjectsCards />
         </div>
     );
 }

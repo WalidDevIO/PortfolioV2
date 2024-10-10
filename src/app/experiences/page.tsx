@@ -1,13 +1,14 @@
-import { Suspense } from "react";
-import { CardsLoader } from "@/components/loaders/cards-loader";
-import { ExperiencesCards } from "@/components/experiences/experiences-cards";
+import dynamic from 'next/dynamic';
+import {CardsLoader} from "@/components/loaders/cards-loader";
+
+const ExperienceCard = dynamic(async () => (await import('@/components/experiences/experiences-cards')).ExperiencesCards, {
+    loading: () => <CardsLoader />,
+});
 
 export default function Experiences() {
     return (
         <div>
-            <Suspense fallback={<CardsLoader />}>
-                <ExperiencesCards />
-            </Suspense>
+            <ExperienceCard />
         </div>
     );
 }
