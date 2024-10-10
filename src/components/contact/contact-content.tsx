@@ -2,14 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { getContact } from "@/actions/getContact";
 
-export default async function Contact() {
+export async function ContactContent() {
 
     const contact = await getContact();
 
     return (
-        <div>
-            <h1 className="text-3xl font-bold mb-6">Me Contacter</h1>
-            <p className="mb-4">Je suis toujours ouvert aux nouvelles opportunités et collaborations. N&apos;hésitez pas à me contacter !</p>
+        <>
             <div className="space-y-4">
                 <p><strong>Email :</strong> {contact.mail}</p>
                 <p><strong>Localisation :</strong> {contact.location}</p>
@@ -31,7 +29,6 @@ export default async function Contact() {
                     </a>
                 </Button>
             </div>
-            <p className="mt-6">Je vous répondrai dans les plus brefs délais. Merci de votre intérêt !</p>
-        </div>
+        </>
     );
 }

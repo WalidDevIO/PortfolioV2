@@ -1,6 +1,6 @@
 "use client"
 
-import { SkillForm } from "@/components/forms/SkillForm";
+import { SkillForm } from "@/components/forms/skill-form";
 import { Skill } from "@/types/skill";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

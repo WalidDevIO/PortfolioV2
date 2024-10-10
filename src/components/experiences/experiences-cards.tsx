@@ -1,6 +1,6 @@
 import { GlobalCards } from "@/components/ui/cards";
 import { getExperiences } from "@/actions/getExperiences";
-export default async function ExperienceCard() {
+export async function ExperiencesCards() {
 
     const experiences = await getExperiences();
     return (

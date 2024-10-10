@@ -1,4 +1,4 @@
-import { FileForm } from "@/components/forms/FileForm";
+import { FileForm } from "@/components/forms/file-form";
 
 export default function FilesUploadPage() {
     return <div>

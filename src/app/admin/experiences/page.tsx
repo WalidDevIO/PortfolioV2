@@ -2,7 +2,7 @@
 
 import { Experience, ExperienceType } from "@/types/experience";
 import { useState } from "react";
-import { ExperienceForm } from "@/components/forms/ExperienceForm";
+import { ExperienceForm } from "@/components/forms/experience-form";
 
 export default function AddExperiencePage() {
 

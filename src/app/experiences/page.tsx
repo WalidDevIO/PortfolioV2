@@ -1,12 +1,12 @@
 import { Suspense } from "react";
-import CardsLoader from "@/components/loaders/cards-loader";
-import ExperienceCard from "./component";
+import { CardsLoader } from "@/components/loaders/cards-loader";
+import { ExperiencesCards } from "@/components/experiences/experiences-cards";
 
 export default function Experiences() {
     return (
         <div>
             <Suspense fallback={<CardsLoader />}>
-                <ExperienceCard />
+                <ExperiencesCards />
             </Suspense>
         </div>
     );

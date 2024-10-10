@@ -1,6 +1,6 @@
 "use client"
 
-import { FormationForm } from "@/components/forms/FormationForm";
+import { FormationForm } from "@/components/forms/formation-form";
 import { Formation } from "@/types/formation";
 import { useState } from "react";
 

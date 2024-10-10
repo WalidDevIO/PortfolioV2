@@ -1,7 +1,7 @@
 import { getProjects } from "@/actions/getProjects";
 import { GlobalCards } from "@/components/ui/cards";
 
-export default async function ProjetsCard() {
+export async function ProjectsCards() {
     const projects = await getProjects();
     return (
         <GlobalCards cards={projects} />

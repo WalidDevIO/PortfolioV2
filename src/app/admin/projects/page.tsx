@@ -1,6 +1,6 @@
 "use client"
 
-import { ProjectForm } from "@/components/forms/ProjectForm";
+import { ProjectForm } from "@/components/forms/project-form";
 import { Projet } from "@/types/projet";
 import { useState } from "react";
 

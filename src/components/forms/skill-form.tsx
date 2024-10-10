@@ -10,7 +10,7 @@ import { Textarea } from "../ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useState, useEffect } from "react";
-import { Flash } from "@/components/forms/Flash";
+import { Flash } from "@/components/forms/flash";
 
 interface SkillFormProps {
     skill: Skill;

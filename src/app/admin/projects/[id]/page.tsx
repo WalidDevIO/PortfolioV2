@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Projet } from "@/types/projet";
-import { ProjectForm } from "@/components/forms/ProjectForm";
+import { ProjectForm } from "@/components/forms/project-form";
 import { Loader } from "@/components/general/loader";
 
 export default function EditProjectPage({ params }: { params: { id: number } }) {

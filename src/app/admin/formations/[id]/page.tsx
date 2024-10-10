@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Formation } from "@/types/formation";
-import { FormationForm } from "@/components/forms/FormationForm";
+import { FormationForm } from "@/components/forms/formation-form";
 import { Loader } from "@/components/general/loader";
 
 export default function EditFormationPage({ params }: { params: { id: number } }) {

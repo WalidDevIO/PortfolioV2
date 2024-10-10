@@ -9,7 +9,7 @@ import { Textarea } from "../ui/textarea";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { Alert, AlertTitle, AlertDescription } from "../ui/alert";
 import { Projet } from "@/types/projet";
-import { Flash } from "@/components/forms/Flash";
+import { Flash } from "@/components/forms/flash";
 
 interface ProjectFormProps {
     project: Projet,

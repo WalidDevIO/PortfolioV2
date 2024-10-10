@@ -3,7 +3,7 @@
 import { Experience } from "@/types/experience"
 import { useState, useEffect } from "react";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
-import { Flash } from "@/components/forms/Flash";
+import { Flash } from "@/components/forms/flash";
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";

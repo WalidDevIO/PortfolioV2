@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Experience, ExperienceType } from "@/types/experience";
-import { ExperienceForm } from "@/components/forms/ExperienceForm";
+import { ExperienceForm } from "@/components/forms/experience-form";
 import { Loader } from "@/components/general/loader";
 
 export default function EditExperiencePage({ params }: { params: { id: number } }) {
