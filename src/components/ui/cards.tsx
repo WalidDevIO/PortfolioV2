@@ -1,4 +1,3 @@
-import { Converter } from "showdown";
 import { MapPin, CalendarDays, Github } from "lucide-react";
 import { Credenza, CredenzaTrigger, CredenzaContent, CredenzaHeader, CredenzaTitle, CredenzaDescription, CredenzaBody } from "@/components/ui/credenza";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
@@ -25,9 +24,7 @@ export function GlobalCards({ cards }: GlobalCardsProps) {
     const isExperience = (card: CardType): card is Experience => (card as Experience).type !== undefined;
     const isProjet = (card: CardType): card is Projet => (card as Projet).littleDescription !== undefined;
     
-    const converter = new Converter();
     cards.forEach((c, idx) => {
-        cards[idx] = { ...c, description: converter.makeHtml(c.description) }
         if (isProjet(c)) {
             cards[idx] = { ...cards[idx], github: c.extraLinks?.find((link: LinkType) => link.github)?.url }
         }

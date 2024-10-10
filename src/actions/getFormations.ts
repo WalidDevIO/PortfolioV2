@@ -1,7 +1,7 @@
 import { createClientServer } from "@/lib/supabase";
 import { Formation } from "@/types/formation";
-import { urlMap } from "@/utils/storageMapper";
 import { PostgrestError } from "@supabase/supabase-js";
+import { dataMapper } from "@/utils/dataMapper";
 
 interface Response {
     data: Formation[] | null;
@@ -17,5 +17,5 @@ export async function getFormations(): Promise<Formation[]> {
         throw error
     }
 
-    return urlMap(data, supabase)
+    return dataMapper(data, supabase)
 }

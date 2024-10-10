@@ -1,7 +1,7 @@
 import { createClientServer } from "@/lib/supabase";
 import { Experience } from "@/types/experience";
 import { PostgrestError } from "@supabase/supabase-js";
-import { urlMap } from "@/utils/storageMapper";
+import { dataMapper } from "@/utils/dataMapper";    
 
 interface Response {
     data: Experience[] | null;
@@ -17,5 +17,5 @@ export async function getExperiences(): Promise<Experience[]> {
         throw error
     }
 
-    return urlMap(data, supabase)
+    return dataMapper(data, supabase)
 }
