@@ -16,7 +16,3 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(data);
 }
-
-export async function GET() {
-    return NextResponse.json(await getExperiences());
-}

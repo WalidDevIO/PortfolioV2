@@ -1,6 +1,7 @@
-import { createClientServer } from '@/lib/supabase'
 import { pathname } from 'next-extra/pathname'
+import { createClientServer } from '@/lib/supabase'
 import { redirect } from 'next/navigation'
+import { Navbar } from '@/components/admin/navbar'
 
 export default async function AdminLayout({
     children,
@@ -16,5 +17,8 @@ export default async function AdminLayout({
         redirect('/admin/dashboard')
     }
 
-    return children;
+    return <>
+        {pathname() !== "/admin" && <Navbar />}
+        {children}
+    </>
 }

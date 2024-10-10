@@ -36,19 +36,3 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ error: "Erreur lors de l'ajout du fichier" }, { status: 500 })
     }
 }
-
-export async function GET() {
-    const supabase = createClientServer();
-
-    const auth = await checkAuth(supabase);
-    if (auth) {
-        return auth;
-    }
-
-    const { data, error } = await supabase.storage.from('files').list();
-    if (error) {
-        return NextResponse.json({ error: 'Error fetching files' }, { status: 500 })
-    }
-
-    return NextResponse.json({ data })
-}

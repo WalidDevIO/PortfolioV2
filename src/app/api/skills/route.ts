@@ -13,10 +13,3 @@ export async function POST(request: NextRequest) {
     if (error) throw error;
     return NextResponse.json(data);
 }
-
-export async function GET() {
-    const supabase = createClientServer();
-    const { data, error } = await supabase.from("skills").select("*");
-    if (error) throw error;
-    return NextResponse.json(data);
-}

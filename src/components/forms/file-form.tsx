@@ -21,7 +21,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const formSchema = z.object({
   fileName: z.string().min(1, "Le nom du fichier est requis"),
-  file: z.any(),
+  file: z.instanceof(File),
 });
 
 export function FileForm() {
@@ -89,7 +89,7 @@ export function FileForm() {
             <FormField
               control={form.control}
               name="file"
-              render={({ field: { onChange, ...rest } }) => (
+              render={({ field: { value, onChange, ...rest } }) => (
                 <FormItem>
                   <FormLabel>Fichier</FormLabel>
                   <FormControl>

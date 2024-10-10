@@ -1,11 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger, DialogClose } from "@/components/ui/dialog";
 import { Trash2, Plus } from "lucide-react";
-import { Loader } from "@/components/general/loader";
 import Link from "next/link";
 
 interface File {
@@ -13,26 +12,13 @@ interface File {
   name: string;
 }
 
-export function FileList() {
-  const [files, setFiles] = useState<File[]>([]);
-  const [loading, setLoading] = useState(true);
+interface FileListProps {
+  initialFiles: File[];
+}
 
-  useEffect(() => {
-    fetchFiles();
-  }, []);
+export function FileList({ initialFiles }: FileListProps) {
 
-  const fetchFiles = async () => {
-    try {
-      const response = await fetch("/api/files");
-      if (!response.ok) throw new Error("Erreur lors de la récupération des fichiers");
-      const { data } = await response.json();
-      setFiles(data);
-    } catch (error) {
-      console.error("Erreur:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [files, setFiles] = useState<File[]>(initialFiles);
 
   const handleDelete = async (name: string) => {
     try {
@@ -45,8 +31,6 @@ export function FileList() {
         console.error("Erreur:", error);
     }
   };
-
-  if (loading) return <div className="flex justify-center items-center"><Loader /></div>;
 
   return (
     <Card className="w-full">
