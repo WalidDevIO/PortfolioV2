@@ -75,7 +75,7 @@ const CredenzaContent = ({ className, children, ...props }: CredenzaProps) => {
     const CredenzaContent = isDesktop ? DialogContent : DrawerContent
 
     return (
-        <CredenzaContent className={cn(className, "supports-[height:80cqh]:max-h-[80cqh] supports-[height:80svh]:max-h-[80svh]")} {...props}>
+        <CredenzaContent className={cn(className, isDesktop && "supports-[height:80cqh]:max-h-[80cqh] supports-[height:80svh]:max-h-[80svh]", !isDesktop && "supports-[height:100cqh]:max-h-[100cqh] supports-[height:100svh]:max-h-[100svh]")} {...props}>
             {children}
         </CredenzaContent>
     )

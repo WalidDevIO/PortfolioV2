@@ -53,18 +53,18 @@ export function GlobalCards({ cards }: GlobalCardsProps) {
                     </CredenzaTrigger>
                     <CredenzaContent className="flex flex-col">
                         <CredenzaHeader>
-                            <CredenzaTitle className="flex flex-row flex-wrap justify-around items-center mb-4">
+                            <CredenzaTitle className="flex flex-row flex-wrap justify-around items-center mb-1 md:mb-4">
                                 {card.title}
                                 <Image
                                     src={card.image}
                                     alt={card.title}
                                     width={45}
                                     height={45}
-                                    className="relative rounded-full object-cover w-[45px] h-[45px]"
+                                    className="relative rounded-full object-cover w-[35px] h-[35px] md:w-[45px] md:h-[45px]"
                                 />
                             </CredenzaTitle>
                             <CredenzaDescription asChild>
-                                <div className="flex flex-col gap-4 text-sm">
+                                <div className="flex flex-col gap-1 md:gap-4 text-sm">
                                     {isFormation(card) || isExperience(card) ? <div className="flex flex-row gap-2 justify-center items-center font-bold text-center">
                                         <Badge>{isFormation(card) ? card.speciality : isExperience(card) ? card.type : null}</Badge>
                                     </div> : null}
