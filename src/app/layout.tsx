@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/general/theme-provider";
 import { Navbar } from "@/components/general/navbar";
 import { MaintenanceMode } from "@/components/general/maintenance-mode";
 import { ModeToggle } from "@/components/general/mode-toggle";
+import { Analytics } from "@vercel/analytics/react";
 import { pathname } from "next-extra/pathname";
 
 const geistSans = localFont({
@@ -37,6 +38,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Analytics />
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <div className="flex flex-col min-h-screen p-2 sm:p-4 md:p-8 max-w-full w-full font-[family-name:var(--font-geist-sans)]">
             { maintenance ? <ModeToggle /> : <Navbar /> }
