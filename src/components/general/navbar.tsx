@@ -33,6 +33,10 @@ export function Navbar() {
             name: "Contact",
             href: "/contact",
         },
+        {
+            name: "Blog",
+            href: "/blog",
+        }
     ];
 
     return (

@@ -9,10 +9,10 @@ export default async function PostPage({ params }: { params: { slug: string } })
     }
 
     return (
-        <div className="container mx-auto p-4" style={{width: "100vw"}}>
+        <div className="container mx-auto p-4">
             <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
             <p className="text-gray-600 mb-4">Posté le {post.created_at ? new Date(post.created_at).toLocaleDateString("fr-FR") : ""}</p>
-            <div dangerouslySetInnerHTML={{ __html: post.content }} className='prose dark:prose-dark inline w-100'/>
+            <div dangerouslySetInnerHTML={{ __html: post.content }} className='prose dark:prose-dark inline w-80'/>
         </div>
     );
 };

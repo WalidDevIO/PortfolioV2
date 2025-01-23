@@ -1,14 +1,14 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-    darkMode: ["class"],
-    content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+	darkMode: ["class"],
+	content: [
+	"./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+	"./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+	"./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-  	extend: {
+	extend: {
 		typography: ({ theme }: {theme: any}) => ({
 		  dark: {
 			  css: {
@@ -17,6 +17,9 @@ const config: Config = {
 				  h1: { color: theme('colors.white') },
 				  h2: { color: theme('colors.white') },
 				  h3: { color: theme('colors.white') },
+				  h4: { color: theme('colors.white') },
+				  h5: { color: theme('colors.white') },
+				  h6: { color: theme('colors.white') },
 				  strong: { color: theme('colors.white') },
 			  },
 		  },
@@ -27,6 +30,9 @@ const config: Config = {
 				  h1: { color: theme('colors.dark') },
 				  h2: { color: theme('colors.dark') },
 				  h3: { color: theme('colors.dark') },
+				  h4: { color: theme('colors.dark') },
+				  h5: { color: theme('colors.dark') },
+				  h6: { color: theme('colors.dark') },
 				  strong: { color: theme('colors.dark') },
 			  },
 		  },
