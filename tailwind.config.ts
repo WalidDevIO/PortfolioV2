@@ -21,6 +21,8 @@ const config: Config = {
 				  h5: { color: theme('colors.white') },
 				  h6: { color: theme('colors.white') },
 				  strong: { color: theme('colors.white') },
+				  th: { color: theme('colors.white'), weight: 'bold' },
+				  code: { color: theme('colors.blue.200') },
 			  },
 		  },
 		  DEFAULT: {
