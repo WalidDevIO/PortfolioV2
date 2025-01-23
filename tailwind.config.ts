@@ -9,6 +9,28 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		typography: ({ theme }: {theme: any}) => ({
+		  dark: {
+			  css: {
+				  color: theme('colors.white'),
+				  a: { color: theme('colors.white') },
+				  h1: { color: theme('colors.white') },
+				  h2: { color: theme('colors.white') },
+				  h3: { color: theme('colors.white') },
+				  strong: { color: theme('colors.white') },
+			  },
+		  },
+		  DEFAULT: {
+			  css: {
+				  color: theme('colors.dark'),
+				  a: { color: theme('colors.dark') },
+				  h1: { color: theme('colors.dark') },
+				  h2: { color: theme('colors.dark') },
+				  h3: { color: theme('colors.dark') },
+				  strong: { color: theme('colors.dark') },
+			  },
+		  },
+		}),
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -58,6 +80,6 @@ const config: Config = {
         }
     }
   },
-  plugins: [require("tailwindcss-animate")],
+	plugins: [require("tailwindcss-animate"), require('@tailwindcss/typography'),],
 };
 export default config;

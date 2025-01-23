@@ -3,15 +3,6 @@ import { checkAuth } from "@/auth/auth";
 import { createClientServer } from "@/lib/supabase";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
-
-    const { post } = await getPost(params.id);
-
-    if (post === undefined) return NextResponse.json({}, {status: 404})
-    return NextResponse.json(post);
-    
-}
-
 export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
     const supabase = createClientServer();
     const auth = await checkAuth(supabase);

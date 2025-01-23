@@ -16,10 +16,3 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({status: "success"}, {status: 200});
 }
-
-export async function GET(req: NextRequest) {
-    const page = req.nextUrl.searchParams.get("page") || "1";
-    const { posts } = await getPosts(parseInt(page)-1);
-
-    return NextResponse.json(posts);
-}

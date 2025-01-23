@@ -1,5 +1,6 @@
 import { createClientServer } from "@/lib/supabase"
 import { Post } from "@/types/post"
+import { Converter } from "showdown"
 
 export async function getPosts(page: number): Promise<{ posts: Post[] }> {
     const supabase = createClientServer()
@@ -17,13 +18,20 @@ export async function getPosts(page: number): Promise<{ posts: Post[] }> {
     }
 }
 
-export async function getPost(slug: string): Promise<{ post?: Post }> {
+export async function getPost(slug: string): Promise<{ post: Post | undefined }> {
     const supabase = createClientServer()
 
     const { data , error } = await supabase.from("blog").select("*").eq("slug", slug)
 
     if(error) {
         throw error
+    }
+
+    const converter = new Converter();
+
+    const post = data[0] as Post|undefined
+    if(post) {
+        post.content = converter.makeHtml(post.content)
     }
 
     return {
