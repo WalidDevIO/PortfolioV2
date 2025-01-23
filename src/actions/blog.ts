@@ -42,7 +42,7 @@ export async function getPost(slug: string): Promise<{ post: Post | undefined }>
 export async function createPost(post: Post) {
     const supabase = createClientServer()
 
-    const { data , error } = await supabase.from("blog").insert(post)
+    const { error } = await supabase.from("blog").insert(post)
 
     if(error) {
         throw error
@@ -52,7 +52,7 @@ export async function createPost(post: Post) {
 export async function updatePost(post: Post) {
     const supabase = createClientServer()
 
-    const { data , error } = await supabase.from("blog").update(post).eq("id", post.id)
+    const { error } = await supabase.from("blog").update(post).eq("id", post.id)
 
     if(error) {
         throw error

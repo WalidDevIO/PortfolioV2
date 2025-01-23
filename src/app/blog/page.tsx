@@ -1,6 +1,6 @@
 import { getPosts } from "@/actions/blog";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default async function Blog({ searchParams }: { searchParams?: { [key: string]: string | string[] | undefined } }) {
     const slug = searchParams?.slug as string | undefined

@@ -79,7 +79,7 @@ export function GlobalCards({ cards }: GlobalCardsProps) {
                         </CredenzaHeader>
                         <Separator className="mb-1" />
                         <CredenzaBody>
-                            <div dangerouslySetInnerHTML={{ __html: card.description }} className="prose-ul prose-ol mb-4" />
+                            <div dangerouslySetInnerHTML={{ __html: card.description }} className="prose dark:prose-dark mb-4" />
                             {card.technologies && card.technologies.length > 0 && (
                                 <div className="flex flex-col gap-4 mb-4">
                                     <span className="text-center font-bold">Technologies :</span>

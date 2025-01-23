@@ -1,4 +1,4 @@
-import { createPost, getPosts } from "@/actions/blog";
+import { createPost } from "@/actions/blog";
 import { checkAuth } from "@/auth/auth";
 import { createClientServer } from "@/lib/supabase";
 import { Post } from "@/types/post";
