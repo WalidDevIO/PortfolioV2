@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import React, { useRef, MutableRefObject, useEffect } from "react";
+import React, { useRef, MutableRefObject } from "react";
 import { TuiWithForwardedRefProps } from "./tui/Editor";
 import { EditorProps, Editor as EditorType } from '@toast-ui/react-editor';
 
