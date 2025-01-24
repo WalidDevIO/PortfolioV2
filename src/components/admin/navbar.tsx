@@ -7,6 +7,7 @@ export function Navbar() {
         <div className="flex flex-row gap-2">
             <Button variant="outline" asChild><Link href="/admin/dashboard">Dashboard</Link></Button>
             <Button variant="outline" asChild><Link href="/admin/files">Fichiers</Link></Button>
+            <Button variant="outline" asChild><Link href="/admin/blog">Posts</Link></Button>
             <Button asChild><Link href="/admin/logout">Déconnecter</Link></Button>
         </div>
     </div>

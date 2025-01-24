@@ -47,7 +47,7 @@ export function SkillForm({ skill, onSubmit, flash }: SkillFormProps) {
     return (
         <>
         <Flash error={error} success={success} />
-        <Card className="w-full max-w-md">
+        <Card className="w-full">
             <CardHeader>
                 <CardTitle>{skill.id ? "Modifier" : "Ajouter"} une compétence</CardTitle>
             </CardHeader>

@@ -12,13 +12,13 @@ export default async function Blog({ searchParams }: { searchParams?: { [key: st
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
                 <Card key={post.id} className="p-4 rounded-lg shadow border-2 border-dark dark:border-white bg-transparent">
-                    <CardHeader>
-                        <CardTitle className="text-4xl font-bold mb-4 text-dark dark:text-white">{post.title}</CardTitle>
-                        <p className="text-dark dark:text-white mb-4">Posté le {post.created_at ? new Date(post.created_at).toLocaleDateString("fr-FR") : ""}</p>
-                        <a href={`/blog/${post.slug}`}>
-                            <Button variant="outline">Lire la suite</Button>
-                        </a>
-                    </CardHeader>
+                    <a href={`/blog/${post.slug}`}>
+                        <CardHeader>
+                            <CardTitle className="text-4xl font-bold mb-4 text-dark dark:text-white">{post.title}</CardTitle>
+                            <p className="text-dark dark:text-white mb-4">Publié le {post.created_at ? new Date(post.created_at).toLocaleDateString("fr-FR") : ""}</p>
+                            <Button variant="outline">Lire la suite...</Button>
+                        </CardHeader>
+                    </a>
                 </Card>
             ))}
             </div>

@@ -11,6 +11,7 @@ import { Textarea } from "../ui/textarea";
 import { Combobox } from "../ui/combobox";
 import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { Alert, AlertTitle, AlertDescription } from "../ui/alert";
+import MarkdownEditor from "../ui/Editor";
 
 interface ExperienceFormProps {
     experience: Experience,
@@ -49,7 +50,7 @@ export function ExperienceForm({experience, onSubmit, flash}: ExperienceFormProp
 
     return (<>
         <Flash error={error} success={success} />
-        <Card className="w-full max-w-2xl">
+        <Card className="w-full w-full">
             <CardHeader>
                 <CardTitle>{experience.id ? "Modifier" : "Ajouter"} une expérience</CardTitle>
             </CardHeader>
@@ -107,7 +108,7 @@ export function ExperienceForm({experience, onSubmit, flash}: ExperienceFormProp
                                 <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                        <Textarea {...field} />
+                                        <MarkdownEditor {...field} />
                                     </FormControl>
                                 </FormItem>
                             )}

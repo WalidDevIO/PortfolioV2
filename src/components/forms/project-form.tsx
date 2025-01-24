@@ -10,6 +10,8 @@ import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { Alert, AlertTitle, AlertDescription } from "../ui/alert";
 import { Projet } from "@/types/projet";
 import { Flash } from "@/components/forms/flash";
+import MarkdownEditor from "../ui/Editor";
+
 
 interface ProjectFormProps {
     project: Projet,
@@ -48,7 +50,7 @@ export function ProjectForm({ project, onSubmit, flash }: ProjectFormProps) {
 
     return (<>
         <Flash error={error} success={success} />
-        <Card className="w-full max-w-2xl">
+        <Card className="w-full">
             <CardHeader>
                 <CardTitle>{project.id ? "Modifier" : "Ajouter"} un projet</CardTitle>
             </CardHeader>
@@ -106,7 +108,7 @@ export function ProjectForm({ project, onSubmit, flash }: ProjectFormProps) {
                                 <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                        <Textarea {...field} />
+                                        <MarkdownEditor {...field} />
                                     </FormControl>
                                 </FormItem>
                             )}

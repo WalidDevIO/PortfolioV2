@@ -5,9 +5,9 @@ import { Converter } from "showdown"
 export async function getPosts(page: number): Promise<{ posts: Post[] }> {
     const supabase = createClientServer()
 
-    const start = page * 5
+    const start = page * 6
 
-    const { data , error } = await supabase.from("blog").select("*").order("created_at", {ascending: false}).range(start, start + 5)
+    const { data , error } = await supabase.from("blog").select("*").order("created_at", {ascending: false}).range(start, start + 6)
 
     if(error) {
         throw error
@@ -27,7 +27,10 @@ export async function getPost(slug: string): Promise<{ post: Post | undefined }>
         throw error
     }
 
-    const converter = new Converter();
+    const converter = new Converter({
+        tables: true,
+        ellipsis: true
+    });
 
     const post = data[0] as Post|undefined
     if(post) {
@@ -36,6 +39,18 @@ export async function getPost(slug: string): Promise<{ post: Post | undefined }>
 
     return {
         post: data[0] as Post|undefined,
+    }
+}
+
+export async function getPostById(id: string): Promise<{post: Post | undefined}> {
+    const supabase = createClientServer()
+
+    const { data: post, error } = await supabase.from("blog").select("*").eq("id", id).maybeSingle()
+
+    if(error) throw error
+
+    return {
+        post
     }
 }
 
@@ -58,3 +73,21 @@ export async function updatePost(post: Post) {
         throw error
     }
 }
+
+export async function getAllPosts() {
+
+    const supabase = createClientServer()
+
+    const { data , error } = await supabase.from("blog").select("*").order("created_at", {ascending: false})
+
+    if(error) {
+        throw error
+    }
+
+    return {
+        posts: data as Post[],
+    }
+
+}
+
+//TODO: Pagination

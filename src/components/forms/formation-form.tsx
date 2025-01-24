@@ -10,6 +10,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 import { Alert, AlertTitle, AlertDescription } from "../ui/alert";
 import { Flash } from "@/components/forms/flash";
 import { Formation } from "@/types/formation";
+import MarkdownEditor from "../ui/Editor";
 
 interface FormationFormProps {
     formation: Formation,
@@ -50,7 +51,7 @@ export function FormationForm({ formation, onSubmit, flash }: FormationFormProps
     return (
         <>
         <Flash error={error} success={success} />
-        <Card className="w-full max-w-2xl">
+        <Card className="w-full">
             <CardHeader>
                 <CardTitle>{formation.id ? "Modifier" : "Ajouter"} une formation</CardTitle>
             </CardHeader>
@@ -108,7 +109,7 @@ export function FormationForm({ formation, onSubmit, flash }: FormationFormProps
                                 <FormItem>
                                     <FormLabel>Description</FormLabel>
                                     <FormControl>
-                                        <Textarea {...field} />
+                                        <MarkdownEditor {...field} />
                                     </FormControl>
                                 </FormItem>
                             )}

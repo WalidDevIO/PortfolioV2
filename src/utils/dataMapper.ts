@@ -6,7 +6,10 @@ import { Converter } from "showdown";
 export function dataMapper<T extends Global>(data: T[] | null, supabase: SupabaseClient): T[] {
     if (data) {
 
-        const converter = new Converter();
+        const converter = new Converter({
+            tables: true,
+            ellipsis: true,
+        });
 
         return data.map((c: T) => {
             const extraLinks = c.extraLinks?.map((link: Link) => {
