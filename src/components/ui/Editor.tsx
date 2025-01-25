@@ -26,7 +26,7 @@ interface MarkdownEditorProps {
 }
 
 const MarkdownEditor = ({ value, onChange }: MarkdownEditorProps) => {
-  const editorRef = useRef<any>();
+  const editorRef = useRef<EditorType>();
 
   return (
     <div className="p-4 rounded-md shadow">
@@ -37,7 +37,7 @@ const MarkdownEditor = ({ value, onChange }: MarkdownEditorProps) => {
         initialEditType="markdown"
         useCommandShortcut={true}
         theme="dark"
-        onChange={() => onChange(editorRef.current.getInstance().getMarkdown())}
+        onChange={() => onChange(editorRef.current?.getInstance().getMarkdown())}
         initialValue={value}
         viewer={true}
       />
