@@ -79,7 +79,7 @@ export function PostForm({ post, onSubmit, flash }: PostFormProps) {
                                 name="slug"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Lieu</FormLabel>
+                                        <FormLabel>Slug</FormLabel>
                                         <FormControl>
                                             <Input {...field} />
                                         </FormControl>
