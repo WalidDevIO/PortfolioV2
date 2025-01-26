@@ -7,7 +7,7 @@ export async function getPosts(page: number): Promise<{ posts: Post[] }> {
 
     const start = page * 6
 
-    const { data , error } = await supabase.from("blog").select("*").order("created_at", {ascending: false}).range(start, start + 6)
+    const { data, error } = await supabase.from("blog").select("*").eq("published", true).order("created_at", {ascending: false}).range(start, start + 6)
 
     if(error) {
         throw error
