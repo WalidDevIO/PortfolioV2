@@ -21,7 +21,7 @@ export async function getPosts(page: number): Promise<{ posts: Post[] }> {
 export async function getPost(slug: string): Promise<{ post: Post | undefined }> {
     const supabase = createClientServer()
 
-    const { data , error } = await supabase.from("blog").select("*").eq("slug", slug)
+    const { data , error } = await supabase.from("blog").select("*").eq("published", true).eq("slug", slug)
 
     if(error) {
         throw error
