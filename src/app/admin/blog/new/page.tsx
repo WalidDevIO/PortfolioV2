@@ -10,6 +10,7 @@ export default function AddExperiencePage() {
         title: "",
         content: "",
         slug: "",
+        published: false
     }
 
     const [error, setError] = useState<string>("");

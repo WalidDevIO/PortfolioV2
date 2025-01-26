@@ -10,6 +10,7 @@ import { Alert, AlertTitle, AlertDescription } from "../ui/alert";
 import { Flash } from "@/components/forms/flash";
 import { Post } from "@/types/post";
 import MarkdownEditor from "../ui/Editor";
+import { Checkbox } from "../ui/checkbox";
 
 interface PostFormProps {
     post: Post,
@@ -82,6 +83,19 @@ export function PostForm({ post, onSubmit, flash }: PostFormProps) {
                                         <FormLabel>Slug</FormLabel>
                                         <FormControl>
                                             <Input {...field} />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="published"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Publié ?</FormLabel>
+                                        <FormControl>
+                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                                         </FormControl>
                                     </FormItem>
                                 )}
