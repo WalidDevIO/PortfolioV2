@@ -11,7 +11,7 @@ export default async function Blog({ searchParams }: { searchParams?: { [key: st
             <h1 className="text-4xl font-bold mb-4">Blog</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {posts.map((post) => (
-                <Card key={post.id} className="p-4 rounded-lg shadow border-2 border-dark dark:border-white bg-transparent">
+                <Card key={post.id} className="p-4 rounded-lg shadow border-2 border-dark dark:border-white bg-transparent hover:scale-[1.05] cursor-pointer duration-500">
                     <a href={`/blog/${post.slug}`}>
                         <CardHeader>
                             <CardTitle className="text-4xl font-bold mb-4 text-dark dark:text-white">{post.title}</CardTitle>

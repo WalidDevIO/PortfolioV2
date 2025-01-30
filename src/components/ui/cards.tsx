@@ -34,7 +34,7 @@ export function GlobalCards({ cards }: GlobalCardsProps) {
             {cards.map((card, index) => (
                 <Credenza key={index}>
                     <CredenzaTrigger asChild>
-                        <Card className="w-48 h-48 flex flex-col justify-center items-center">
+                        <Card className="w-48 h-48 flex flex-col justify-center items-center hover:scale-[1.05] cursor-pointer duration-500">
                             <CardContent className={cn("flex flex-col items-center p-0 h-full gap-3", isProjet(card) ? "mt-8" : "mt-10")}>
                                 <div className="flex flex-col items-center gap-3 w-full">
                                     <Image
