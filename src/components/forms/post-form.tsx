@@ -95,7 +95,7 @@ export function PostForm({ post, onSubmit, flash }: PostFormProps) {
                                     <FormItem>
                                         <FormLabel>Publié ?</FormLabel>
                                         <FormControl>
-                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
+                                            <Checkbox checked={field.value} onCheckedChange={field.onChange} className="m-2 pt-2" />
                                         </FormControl>
                                     </FormItem>
                                 )}

@@ -1,4 +1,4 @@
-import { getPost, getPostById, updatePost } from "@/actions/blog";
+import { getPostById, updatePost } from "@/actions/blog";
 import { checkAuth } from "@/auth/auth";
 import { createClientServer } from "@/lib/supabase";
 import { NextRequest, NextResponse } from "next/server";
@@ -10,7 +10,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
         return auth;
     }
     const { title, content, slug } = await request.json();
-    const { post } = await getPost(params.id);
+    const { post } = await getPostById(params.id);
     if(post === undefined) return NextResponse.json({}, {status: 404})
     const newPost = {
         ...post,
