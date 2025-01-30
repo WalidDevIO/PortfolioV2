@@ -9,14 +9,15 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     if(auth) {
         return auth;
     }
-    const { title, content, slug } = await request.json();
+    const { title, content, slug, published } = await request.json();
     const { post } = await getPostById(params.id);
     if(post === undefined) return NextResponse.json({}, {status: 404})
     const newPost = {
         ...post,
         title,
         content,
-        slug
+        slug,
+        published
     }
     await updatePost(newPost);
     return NextResponse.json(newPost);
