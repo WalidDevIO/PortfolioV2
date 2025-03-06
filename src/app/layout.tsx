@@ -46,7 +46,7 @@ export default function RootLayout({
               {maintenance && !pathname().startsWith("/admin") ? <MaintenanceMode /> : children}
             </main>
             <footer className="mt-8 text-center">
-              EL OUAZIZI Walid - 2024 ©
+              EL OUAZIZI Walid - { new Date().getFullYear() } ©
             </footer>
           </div>
         </ThemeProvider>

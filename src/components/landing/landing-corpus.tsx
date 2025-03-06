@@ -7,12 +7,14 @@ import Link from "next/link";
 import { getSkills } from "@/actions/getSkills";
 import { getLast } from "@/actions/getLast";
 import { getLandingText } from "@/actions/getLandingText";
+import { getLastPost } from "@/actions/blog";
 
 export async function LandingCorpus() {
 
     const skills = await getSkills();
     const last = await getLast();
     const landingText = await getLandingText();
+    const lastPost = await getLastPost();
 
     return (
         <>
@@ -22,6 +24,29 @@ export async function LandingCorpus() {
                 </div>
             </div>
             <div className="w-full">
+                <div className="mb-4">
+                    <Card>
+                        <CardHeader>
+                            <CardTitle>
+                                Mon dernier article
+                            </CardTitle>
+                        </CardHeader>
+                        <Separator className="my-2"/>
+                        <CardContent className="flex flex-col gap-2">
+                            <div>
+                                <span className="text-xl font-bold">{lastPost.title}</span>
+                            </div>
+                            <div className="mb-2">
+                                <p>{lastPost.description}</p>
+                            </div>
+                            <div>
+                                <Button variant="outline" asChild>
+                                    <Link href={`/blog/${lastPost.slug}`}>Lire l'article</Link>
+                                </Button>
+                            </div>
+                        </CardContent>
+                    </Card>
+                </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="flex flex-col gap-4">
                         <Card>

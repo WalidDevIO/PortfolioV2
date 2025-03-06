@@ -6,4 +6,5 @@ export type Post = ID & {
     title: string;
     content: string;
     slug: string;
+    description: string;
 }

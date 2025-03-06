@@ -90,6 +90,19 @@ export function PostForm({ post, onSubmit, flash }: PostFormProps) {
 
                             <FormField
                                 control={form.control}
+                                name="description"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Description</FormLabel>
+                                        <FormControl>
+                                            <Input {...field} />
+                                        </FormControl>
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
                                 name="published"
                                 render={({ field }) => (
                                     <FormItem>

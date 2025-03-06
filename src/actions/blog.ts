@@ -97,4 +97,17 @@ export async function getAllPosts() {
 
 }
 
+export async function getLastPost() {
+
+    const supabase = createClientServer()
+
+    const { data, error } = await supabase.from("blog").select("*").eq("published", true).order("created_at", {ascending: false}).limit(1).single();
+
+    if(error) {
+        throw error
+    }
+
+    return data as Post
+}
+
 //TODO: Pagination
