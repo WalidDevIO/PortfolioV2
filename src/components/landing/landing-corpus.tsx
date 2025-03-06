@@ -41,7 +41,7 @@ export async function LandingCorpus() {
                             </div>
                             <div>
                                 <Button variant="outline" asChild>
-                                    <Link href={`/blog/${lastPost.slug}`}>Lire l'article</Link>
+                                    <Link href={`/blog/${lastPost.slug}`}>Lire l&apos;article</Link>
                                 </Button>
                             </div>
                         </CardContent>

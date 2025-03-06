@@ -9,6 +9,7 @@ export default function AddExperiencePage() {
     const post: Post = {
         title: "",
         content: "",
+        description: "",
         slug: "",
         published: false
     }

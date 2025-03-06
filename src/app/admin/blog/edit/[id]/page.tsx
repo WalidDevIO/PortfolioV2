@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 
 export default function EditPost({ params }: { params: { id: number } }) {
 
-    const [post, setPost] = useState<Post>({ title: "", content: "", slug: "", published: false });
+    const [post, setPost] = useState<Post>({ title: "", description: "", content: "", slug: "", published: false });
     const [error, setError] = useState<string>("");
     const [success, setSuccess] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(true);
