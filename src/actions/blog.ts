@@ -35,6 +35,13 @@ export async function getPost(slug: string): Promise<{ post: Post | undefined }>
     const post = data[0] as Post|undefined
     if(post) {
         post.content = converter.makeHtml(post.content)
+        post.content = post.content.replace(/<img[^>]+src=["']([^"']+)["']/g, (match, src) => {
+            if (!src.startsWith("http") && !src.startsWith("data:image")) {
+                const publicUrl = supabase.storage.from("files").getPublicUrl(src).data.publicUrl;
+                return match.replace(src, publicUrl);
+            }
+            return match;
+        });
     }
 
     return {
