@@ -13,6 +13,7 @@ import TableHeader from '@tiptap/extension-table-header'
 import TableCell from '@tiptap/extension-table-cell'
 import TaskItem from '@tiptap/extension-task-item'
 import TaskList from '@tiptap/extension-task-list'
+import { Markdown } from 'tiptap-markdown';
 import MenuBar from './MenuBar.vue'
 
 const lowlight = createLowlight(all)
@@ -25,7 +26,7 @@ const emit = defineEmits(['update:modelValue'])
 const editor = useEditor({
     content: props.modelValue,
     onUpdate: ({ editor }) => {
-        emit('update:modelValue', editor.getHTML())
+        emit('update:modelValue', editor.storage.markdown.getMarkdown())
     },
     extensions: [
         StarterKit.configure({
@@ -46,13 +47,14 @@ const editor = useEditor({
         TaskItem.configure({
             nested: true,
         }),
+        Emoji.configure({
+            suggestion
+        }),
+        Markdown,
         TableRow,
         TableHeader,
         TableCell,
         Underline,
-        Emoji.configure({
-            suggestion
-        }),
         TaskList,
     ],
     editorProps: {
