@@ -6,7 +6,7 @@
             <template v-else>
                 {{ item.emoji }}
             </template>
-            :{{ item.name }}:
+            <Badge>:{{ item.name }}:</Badge>
         </button>
     </div>
 </template>
