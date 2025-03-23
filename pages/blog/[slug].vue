@@ -7,15 +7,26 @@
 </template>
 
 <script setup lang="ts">
+import { z } from "zod"
 import prisma from "@/server/utils/prisma"
 
 const route = useRoute()
 const router = useRouter()
 
+const routeParamsSchema = z.object({
+    slug: z.string()
+})
+
+const parsedParams = routeParamsSchema.safeParse(route.params)
+
+if(!parsedParams.success) {
+    throw createError({statusCode: 400, statusMessage: "Paramètres de route incorrects"})
+}
+
 const { data } = await useAsyncData(`post.${route.params.slug}`, async () => {
     return await prisma.post.findFirst({
         where: {
-            slug: route.params.slug,
+            slug: parsedParams.data.slug,
             published: true
         }
     })
