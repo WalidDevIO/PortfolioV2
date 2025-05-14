@@ -10,11 +10,11 @@ export async function comparePasswords(password: string, hash: string) {
     return await bcrypt.compare(password, hash)
 }
 
-export const checkAuth = (async (event: H3Event<EventHandlerRequest>) => {
+export const checkAuth = async (event: H3Event<EventHandlerRequest>) => {
     const cookies = parseCookies(event);
     const token = cookies.token;
 
     if (!token || !verifyToken(token)) {
         throw createError({ statusCode: 401, message: "Accès non autorisé" });
     }
-});
+};

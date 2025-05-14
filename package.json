@@ -55,8 +55,10 @@
     "mysql2": "^3.14.0",
     "nuxt": "^3.16.1",
     "prisma": "^6.5.0",
+    "prisma-zod-generator": "^0.8.13",
     "reka-ui": "^2.1.0",
     "shadcn-nuxt": "1.0.3",
+    "showdown": "^2.1.0",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7",
     "tiptap-markdown": "^0.8.10",
@@ -67,6 +69,7 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@types/showdown": "^2.0.6",
     "sass-embedded": "^1.86.0"
   }
 }

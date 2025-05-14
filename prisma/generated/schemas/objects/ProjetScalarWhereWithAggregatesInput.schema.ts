@@ -1,0 +1,62 @@
+import { z } from 'zod';
+import { IntWithAggregatesFilterObjectSchema } from './IntWithAggregatesFilter.schema';
+import { DateTimeWithAggregatesFilterObjectSchema } from './DateTimeWithAggregatesFilter.schema';
+import { StringWithAggregatesFilterObjectSchema } from './StringWithAggregatesFilter.schema';
+import { JsonWithAggregatesFilterObjectSchema } from './JsonWithAggregatesFilter.schema';
+
+import type { Prisma } from '@prisma/client';
+
+const Schema: z.ZodType<Prisma.ProjetScalarWhereWithAggregatesInput> = z
+  .object({
+    AND: z
+      .union([
+        z.lazy(() => ProjetScalarWhereWithAggregatesInputObjectSchema),
+        z.lazy(() => ProjetScalarWhereWithAggregatesInputObjectSchema).array(),
+      ])
+      .optional(),
+    OR: z
+      .lazy(() => ProjetScalarWhereWithAggregatesInputObjectSchema)
+      .array()
+      .optional(),
+    NOT: z
+      .union([
+        z.lazy(() => ProjetScalarWhereWithAggregatesInputObjectSchema),
+        z.lazy(() => ProjetScalarWhereWithAggregatesInputObjectSchema).array(),
+      ])
+      .optional(),
+    id: z
+      .union([z.lazy(() => IntWithAggregatesFilterObjectSchema), z.number()])
+      .optional(),
+    createdAt: z
+      .union([
+        z.lazy(() => DateTimeWithAggregatesFilterObjectSchema),
+        z.coerce.date(),
+      ])
+      .optional(),
+    title: z
+      .union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+      .optional(),
+    duration: z
+      .union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+      .optional(),
+    location: z
+      .union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+      .optional(),
+    description: z
+      .union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+      .optional(),
+    image: z
+      .union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+      .optional(),
+    technologies: z.lazy(() => JsonWithAggregatesFilterObjectSchema).optional(),
+    extraLinks: z.lazy(() => JsonWithAggregatesFilterObjectSchema).optional(),
+    littleDescription: z
+      .union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+      .optional(),
+    landingDescription: z
+      .union([z.lazy(() => StringWithAggregatesFilterObjectSchema), z.string()])
+      .optional(),
+  })
+  .strict();
+
+export const ProjetScalarWhereWithAggregatesInputObjectSchema = Schema;

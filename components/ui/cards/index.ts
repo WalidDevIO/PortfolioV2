@@ -1,0 +1,1 @@
+export { default as GlobalCards } from "./cards.vue"
