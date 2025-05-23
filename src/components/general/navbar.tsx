@@ -30,13 +30,17 @@ export function Navbar() {
             href: "/formations",
         },
         {
+            name: "Blog",
+            href: "/blog",
+        },
+        {
+            name: "Livre d'or",
+            href: "/livre-dor",
+        },
+        {
             name: "Contact",
             href: "/contact",
         },
-        {
-            name: "Blog",
-            href: "/blog",
-        }
     ];
 
     return (
