@@ -44,6 +44,7 @@ export function GlobalCards({ cards }: GlobalCardsProps) {
                                         height={65}
                                         className="rounded-full object-cover top-2 w-[65px] h-[65px]"
                                         style={{ objectFit: 'cover', objectPosition: 'center' }}
+                                        unoptimized
                                     />
                                     <CardTitle className="text-sm text-center">{card.title}</CardTitle>
                                 </div>
@@ -61,6 +62,7 @@ export function GlobalCards({ cards }: GlobalCardsProps) {
                                     width={45}
                                     height={45}
                                     className="relative rounded-full object-cover w-[35px] h-[35px] md:w-[45px] md:h-[45px]"
+                                    unoptimized
                                 />
                             </CredenzaTitle>
                             <CredenzaDescription asChild>
