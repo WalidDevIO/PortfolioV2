@@ -1,16 +1,23 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Message } from "@/app/livre-dor/type";
+import { useRouter } from "next/navigation";
 
 export function AcceptButton({message}: {message: Message}) {
-    const handleAccept = () => {
+    const router = useRouter();
+
+    const handleAccept = async () => {
         fetch("/api/livre-dor", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(message),
-        }).catch(() => {
+        })
+        .then(() => {
+            router.refresh();
+        })
+        .catch(() => {
             alert("Error accepting message");
         });
     };
@@ -23,14 +30,20 @@ export function AcceptButton({message}: {message: Message}) {
 }
 
 export function DeleteButton({ message }: { message: Message }) {
-    const handleDelete = () => {
+    const router = useRouter();
+
+    const handleDelete = async () => {
         fetch("/api/livre-dor", {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(message),
-        }).catch(() => {
+        })
+        .then(() => {
+            router.refresh();
+        })
+        .catch(() => {
             alert("Error deleting message");
         });
     };

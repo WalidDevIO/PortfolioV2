@@ -12,6 +12,7 @@ import { MessageListProps } from "./type";
 
 export default function LivreDor({ messages }: MessageListProps) {
     const [dialogOpen, setDialogOpen] = useState(false);
+    const [confirmationOpen, setConfirmationOpen] = useState(false);
     const [post, setPost] = useState({
         name: "",
         content: "",
@@ -42,6 +43,7 @@ export default function LivreDor({ messages }: MessageListProps) {
             created_at: new Date(),
         });
         setDialogOpen(false);
+        setConfirmationOpen(true);
     };
 
     const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -136,6 +138,19 @@ export default function LivreDor({ messages }: MessageListProps) {
                             </Button>
                         </div>
                     </form>
+                </DialogContent>
+            </Dialog>
+            <Dialog open={confirmationOpen} onOpenChange={setConfirmationOpen}>
+                <DialogContent className="bg-white dark:bg-black/80 border dark:border-gray-700 rounded-xl shadow-xl max-w-md w-full p-6">
+                    <DialogTitle className="text-lg font-bold text-dark dark:text-white mb-4">
+                        Merci !
+                    </DialogTitle>
+                    <p className="text-dark dark:text-white">Votre message a été pris en compte. Il sera visible prochainement.</p>
+                    <div className="flex justify-end mt-4">
+                        <Button onClick={() => setConfirmationOpen(false)}>
+                            Fermer
+                        </Button>
+                    </div>
                 </DialogContent>
             </Dialog>
         </div>
