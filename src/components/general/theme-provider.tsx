@@ -26,6 +26,11 @@ function ThemeLogic({ children }: { children: React.ReactNode }) {
                 id: "tsparticles",
                 options: {
                     preset: "stars",
+                    particles: {
+                        color: {
+                            value: "#5e646f",
+                        },
+                    },
                 },
             });
         };

@@ -10,21 +10,25 @@ const config: Config = {
   theme: {
 	extend: {
 		typography: ({ theme }: {theme: any}) => ({
-		  dark: {
-			  css: {
-				  color: theme('colors.white'),
-				  a: { color: theme('colors.white') },
-				  h1: { color: theme('colors.white') },
-				  h2: { color: theme('colors.white') },
-				  h3: { color: theme('colors.white') },
-				  h4: { color: theme('colors.white') },
-				  h5: { color: theme('colors.white') },
-				  h6: { color: theme('colors.white') },
-				  strong: { color: theme('colors.white') },
-				  th: { color: theme('colors.white'), weight: 'bold' },
-				  code: { color: theme('colors.blue.200') },
-			  },
-		  },
+                  dark: {
+                          css: {
+                                  color: theme('colors.white'),
+                                  a: { color: theme('colors.white') },
+                                  h1: { color: theme('colors.white') },
+                                  h2: { color: theme('colors.white') },
+                                  h3: { color: theme('colors.white') },
+                                  h4: { color: theme('colors.white') },
+                                  h5: { color: theme('colors.white') },
+                                  h6: { color: theme('colors.white') },
+                                  strong: { color: theme('colors.white') },
+                                  th: { color: theme('colors.white'), weight: 'bold' },
+                                  code: { color: theme('colors.blue.200') },
+                                  blockquote: {
+                                          color: theme('colors.gray.400'),
+                                          borderLeftColor: theme('colors.chart.2'),
+                                  },
+                          },
+                  },
 		  DEFAULT: {
 			  css: {
 				  color: theme('colors.dark'),

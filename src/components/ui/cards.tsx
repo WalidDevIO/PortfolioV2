@@ -48,7 +48,7 @@ export function GlobalCards({ cards }: GlobalCardsProps) {
                                     />
                                     <CardTitle className="text-sm text-center">{card.title}</CardTitle>
                                 </div>
-                                {isProjet(card) && card.littleDescription && <CredenzaDescription className="text-sm text-center">{card.littleDescription}</CredenzaDescription>}
+                                {isProjet(card) && card.littleDescription && <CredenzaDescription className="text-sm text-center dark:text-white">{card.littleDescription}</CredenzaDescription>}
                             </CardContent>
                         </Card>
                     </CredenzaTrigger>
