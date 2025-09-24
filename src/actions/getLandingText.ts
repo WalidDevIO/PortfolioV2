@@ -1,23 +1,6 @@
 import { createClientServer } from "@/lib/supabase";
+import { getPlugins, Plugin } from "@/utils/landingTransformPlugins";
 import { Converter } from "showdown"
-
-interface Plugin {
-    regex: RegExp,
-    plugin: (group: string) => string
-}
-
-const yearDiffPlugin = (group: string): string => {
-    const todayYear = new Date().getFullYear()
-    const year = parseInt(group.match(/[0-9]+/)![0])
-    return (todayYear - year).toString()
-}
-
-const PLUGINS: Plugin[] = [
-    {
-        regex: /{yearDiff\([0-9]+\)}/g,
-        plugin: yearDiffPlugin
-    }
-]
 
 export async function getLandingText(): Promise<string> {
     const supabase = createClientServer()
@@ -29,13 +12,13 @@ export async function getLandingText(): Promise<string> {
         throw error
     }
 
-    return converter.makeHtml(preformat_text(data.landing_text))
+    const plugins = await getPlugins(supabase);
+    return converter.makeHtml(preformat_text(data.landing_text, plugins))
 }
 
-const preformat_text = (text: string) => {
-    let formatted_text = text
-    PLUGINS.forEach(({regex, plugin}) => {
-        formatted_text = formatted_text.replaceAll(regex, (match) => plugin(match))
+const preformat_text = (text: string, plugins: Plugin[]) => {
+    plugins.forEach(({ regex, transform }) => {
+        text = text.replaceAll(regex, transform)
     })
-    return formatted_text
+    return text
 }
