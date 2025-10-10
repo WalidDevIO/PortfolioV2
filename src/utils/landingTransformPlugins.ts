@@ -6,6 +6,7 @@ export interface Plugin {
     transform: (match: string, ...args: any[]) => string
 }
 
+//eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getPlugins = async (supabase: SupabaseClient): Promise<Plugin[]> => {
 
     return [
