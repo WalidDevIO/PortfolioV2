@@ -12,7 +12,7 @@
                     </CardHeader>
                     <div class="flex-1"></div>
                     <CardContent class="flex flex-col align-center">
-                        <p class="text-dark text-sm dark:text-white mb-2">Publié le {{ new Date(post.createdAt).toLocaleDateString("fr-FR") }}</p>
+                        <p class="text-dark text-sm dark:text-white mb-2">Publié le {{ new Date(post.created_at).toLocaleDateString("fr-FR") }}</p>
                         <Button variant="outline" class="font-bold">Lire l'article</Button>
                     </CardContent>
                 </NuxtLink>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Post } from "@prisma/client";
+import type { Tables } from "~/types/database.types";
 
-const { data: posts } = useFetch<Post[]>(`http://localhost:3000/api/blog`)
+const { data: posts } = useFetch<Tables<'blog'>[]>(`http://localhost:3000/api/blog`)
 </script>

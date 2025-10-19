@@ -1,24 +1,21 @@
-// server/api/formations/index.post.ts
-import { H3Event } from 'h3'
-import prisma from '~/server/utils/prisma'
-import { FormationCreateInputObjectSchema } from '~/prisma/generated/schemas'
-import { checkAuth } from '~/server/utils/auth'
+import { serverSupabaseClient } from '#supabase/server'
+import { formationInsertValidator } from '~/generated/typia'
 
-export default defineEventHandler(async (event: H3Event) => {
-    await checkAuth(event);
+export default defineEventHandler(async (event) => {
+    const supabase = await serverSupabaseClient(event)
+    const body = await readBody(event)
+    const parsed = formationInsertValidator(body)
 
-    const body = await readBody(event);
-    const parseResult = FormationCreateInputObjectSchema.safeParse(body);
-
-    if (!parseResult.success) {
+    if (!parsed.success) {
         throw createError({
             statusCode: 400,
             message: "Validation échouée",
-            data: parseResult.error.flatten().fieldErrors
+            data: parsed.errors
         });
     }
 
-    return await prisma.formation.create({
-        data: parseResult.data
-    });
-});
+    const {data: formation, error} = await supabase.from('formations').insert(parsed.data)
+    if (error) throw createError({ statusCode: 500, message: error.message })
+
+    return formation
+})

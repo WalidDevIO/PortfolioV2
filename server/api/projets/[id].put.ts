@@ -1,46 +1,36 @@
-// server/api/projets/[id].put.ts
-import { H3Event } from 'h3'
-import prisma from '~/server/utils/prisma'
-import { ProjetUpdateInputObjectSchema } from '~/prisma/generated/schemas'
-import { checkAuth } from '~/server/utils/auth'
-import { z } from 'zod'
+import { serverSupabaseClient } from '#supabase/server';
+import { idValidator, projectUpdateValidator } from '~/generated/typia';
 
-const paramsSchema = z.object({
-    id: z.string()
-})
-
-export default defineEventHandler(async (event: H3Event) => {
-    await checkAuth(event);
-
-    const params = paramsSchema.safeParse(event.context.params)
+export default defineEventHandler(async (event) => {
+    const params = idValidator(event.context.params)
     if(!params.success) {
-        throw createError({statusCode: 404, message: "Page introuvable"})
+        throw createError({statusCode: 404, message: "Projet introuvable"})
     }
     const { id } = params.data;
-    const experienceId = parseInt(id, 10);
+    const supabase = await serverSupabaseClient(event);
 
-    if (isNaN(experienceId)) {
-        throw createError({
-            statusCode: 400,
-            message: 'ID invalide fourni'
-        });
-    }
+    const { data: projet, error } = await supabase
+        .from("projects")
+        .select("*")
+        .eq("id", parseInt(id, 10))
+        .single();
+
+    if (error || !projet) throw createError({ statusCode: 404, message: "Projet introuvable"});
 
     const body = await readBody(event);
-    const parseResult = ProjetUpdateInputObjectSchema.safeParse(body);
+    const parseResult = projectUpdateValidator(body);
 
     if (!parseResult.success) {
         throw createError({
             statusCode: 400,
             message: "Validation échouée",
-            data: parseResult.error.flatten().fieldErrors
+            data: parseResult.errors
         });
     }
 
-    const updatedProjet = await prisma.projet.update({
-        where: { id: experienceId },
-        data: parseResult.data
-    });
+    const {data: updatedProjet, error: updateError} = await supabase.from("projects").update(parseResult.data).select().eq("id", parseInt(id, 10));
 
-    return updatedProjet;
+    if (updateError) throw createError({ statusCode: 500, message: "Erreur lors de la mise à jour du projet" });
+
+    return updatedProjet?.[0];
 });

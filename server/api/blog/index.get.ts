@@ -1,11 +1,11 @@
-import { supabase } from '~/server/utils/supabase'
+import { serverSupabaseClient } from '#supabase/server'
 
-export default defineEventHandler(async () => {
-    const { data, error } = await supabase
+export default defineEventHandler(async (event) => {
+    const { data, error } = await (await serverSupabaseClient(event))
         .from('blog')
         .select('*')
         .eq('published', true)
-        .order('createdAt', { ascending: false })
+        .order('created_at', { ascending: false })
 
     if (error) throw createError({ statusCode: 500, message: error.message })
 

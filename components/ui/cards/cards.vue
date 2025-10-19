@@ -6,8 +6,8 @@
           <CardContent :class="['flex flex-col items-center p-0 h-full gap-3', isProjet(card) ? 'mt-8' : 'mt-10']">
             <div class="flex flex-col items-center gap-3 w-full">
               <NuxtImg
-                :src="card.image"
-                :alt="card.title"
+                :src="card.image ?? ''"
+                :alt="card.title ?? 'alt image'"
                 class="rounded-full object-cover w-[65px] h-[65px]"
                 width="65"
                 height="65"
@@ -28,8 +28,8 @@
           <CredenzaTitle class="flex flex-row flex-wrap justify-around items-center mb-1 md:mb-4">
             {{ card.title }}
             <NuxtImg
-              :src="card.image"
-              :alt="card.title"
+              :src="card.image ?? ''"
+              :alt="card.title ?? 'alt image'"
               class="relative rounded-full object-cover w-[35px] h-[35px] md:w-[45px] md:h-[45px] xl:w-[65px] xl:h-[65px]"
             />
           </CredenzaTitle>
@@ -51,7 +51,7 @@
         <Separator class="mb-1" />
 
         <CredenzaBody>
-          <div v-html="converter.makeHtml(card.description)" class="prose dark:prose-dark mb-4" />
+          <div v-html="converter.makeHtml(card.description ?? '')" class="prose dark:prose-dark mb-4" />
 
           <template v-if="Array.isArray(card.technologies) && card.technologies.length">
             <div class="flex flex-col gap-4 mb-4">
@@ -99,15 +99,18 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import type { Experience, Formation, Projet } from '@prisma/client'
+import type { Tables } from '~/types/database.types'
 import { MapPin, CalendarDays, Github } from 'lucide-vue-next'
 import { Converter } from 'showdown'
 import { z } from 'zod'
 
-interface CardProjet extends Projet {
+interface CardProjet extends Tables<'projects'> {
   github?: string
 }
 
+type Formation = Tables<'formations'>;
+type Experience = Tables<'experiences'>;
+type Projet = Tables<'projects'>;
 type CardType = Experience | Formation | CardProjet | Projet
 
 interface Props {

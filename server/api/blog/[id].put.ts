@@ -1,11 +1,9 @@
-import typia from "typia";
 import { serverSupabaseClient } from '#supabase/server';
 import { type TablesUpdate } from "~/types/database.types";
-
-type GetParam = { id: string };
+import { blogUpdateValidator, idValidator } from '~/generated/typia';
 
 export default defineEventHandler(async (event) => {
-    const params = typia.validate<GetParam>(event.context.params)
+    const params = idValidator(event.context.params)
     if(!params.success) {
         throw createError({statusCode: 404, message: "Post introuvable"})
     }
@@ -21,7 +19,7 @@ export default defineEventHandler(async (event) => {
     if (error || !post) throw createError({ statusCode: 404, message: "Post introuvable"});
 
     const body = await readBody(event);
-    const parseResult = typia.validate<TablesUpdate<"blog">>(body);
+    const parseResult = blogUpdateValidator(body);
 
     if (!parseResult.success) {
         throw createError({

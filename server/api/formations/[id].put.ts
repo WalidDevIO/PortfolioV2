@@ -1,46 +1,36 @@
-// server/api/formations/[id].put.ts
-import { H3Event } from 'h3'
-import prisma from '~/server/utils/prisma'
-import { FormationUpdateInputObjectSchema } from '~/prisma/generated/schemas'
-import { checkAuth } from '~/server/utils/auth'
-import { z } from 'zod'
+import { serverSupabaseClient } from '#supabase/server';
+import { formationUpdateValidator, idValidator } from '~/generated/typia';
 
-const paramsSchema = z.object({
-    id: z.string()
-})
-
-export default defineEventHandler(async (event: H3Event) => {
-    await checkAuth(event);
-
-    const params = paramsSchema.safeParse(event.context.params)
+export default defineEventHandler(async (event) => {
+    const params = idValidator(event.context.params)
     if(!params.success) {
-        throw createError({statusCode: 404, message: "Page introuvable"})
+        throw createError({statusCode: 404, message: "Formation introuvable"})
     }
     const { id } = params.data;
-    const formationId = parseInt(id, 10);
+    const supabase = await serverSupabaseClient(event);
 
-    if (isNaN(formationId)) {
-        throw createError({
-            statusCode: 400,
-            message: 'ID invalide fourni'
-        });
-    }
+    const { data: formation, error } = await supabase
+        .from("formations")
+        .select("*")
+        .eq("id", parseInt(id, 10))
+        .single();
+
+    if (error || !formation) throw createError({ statusCode: 404, message: "Formation introuvable"});
 
     const body = await readBody(event);
-    const parseResult = FormationUpdateInputObjectSchema.safeParse(body);
+    const parseResult = formationUpdateValidator(body);
 
     if (!parseResult.success) {
         throw createError({
             statusCode: 400,
             message: "Validation échouée",
-            data: parseResult.error.flatten().fieldErrors
+            data: parseResult.errors
         });
     }
 
-    const updatedFormation = await prisma.formation.update({
-        where: { id: formationId },
-        data: parseResult.data
-    });
+    const {data: updatedFormation, error: updateError} = await supabase.from("formations").update(parseResult.data).select().eq("id", parseInt(id, 10));
 
-    return updatedFormation;
+    if (updateError) throw createError({ statusCode: 500, message: "Erreur lors de la mise à jour de la formation" });
+
+    return updatedFormation?.[0];
 });

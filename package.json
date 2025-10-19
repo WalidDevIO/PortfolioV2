@@ -7,7 +7,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "prepare": "typia generate --input validators --output generated",
+    "gen:typia": "typia generate --input validators --output generated"
   },
   "dependencies": {
     "@nartix/tiptap-inline-code-highlight": "^1.0.12",
@@ -56,13 +58,14 @@
     "tailwindcss-animate": "^1.0.7",
     "tiptap-markdown": "^0.8.10",
     "vaul-vue": "^0.4.1",
-    "vee-validate": "^4.15.0",
+    "vee-validate": "^4.15.1",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@types/showdown": "^2.0.6",
-    "typia": "^9.7.2",
-    "sass-embedded": "^1.86.0"
+    "sass-embedded": "^1.86.0",
+    "typescript": "~5.9.2",
+    "typia": "^9.7.2"
   }
 }

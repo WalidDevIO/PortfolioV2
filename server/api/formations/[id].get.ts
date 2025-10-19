@@ -1,5 +1,5 @@
-import { idValidator } from '~/generated/typia'
 import { serverSupabaseClient } from '#supabase/server'
+import { idValidator } from '~/generated/typia'
 
 const asNumber = (value: string) => {
     let numberValue: number
@@ -14,19 +14,22 @@ const asNumber = (value: string) => {
 export default defineEventHandler(async (event) => {
     const params = idValidator(event.context.params)
     if(!params.success) {
-        throw createError({statusCode: 404, message: "Post introuvable"})
+        throw createError({statusCode: 404, message: "Formation introuvable"})
     }
 
     const supabase = await serverSupabaseClient(event)
     const id = asNumber(params.data.id)
-    
-    const { data: post, error } = await supabase
-        .from("blog")
+    if(id === null) {
+        throw createError({statusCode: 404, message: "Formation introuvable"})
+    }
+
+    const { data: formation, error } = await supabase
+        .from("formations")
         .select("*")
-        .eq(id !== null ? "id" : "slug", id ?? params.data.id)
+        .eq("id", id)
         .single()
 
-   if (error) throw createError({ statusCode: 404, message: "Post introuvable"})
+   if (error) throw createError({ statusCode: 404, message: "Formation introuvable"})
 
-    return post
+    return formation
 })

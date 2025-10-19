@@ -23,14 +23,16 @@
 </template>
 
 <script setup lang="ts">
-import prisma from "@/server/utils/prisma"
 import {
     Mail,
     Linkedin,
     Github
 } from "lucide-vue-next"
 
-const { data } = await useAsyncData("configuration", async () => {
-    return await prisma.configuration.findFirst();
-})
+const data = {
+    mail: "example@example.com",
+    location: "Paris, France",
+    linkedin: "https://www.linkedin.com/in/example",
+    github: "https://github.com/example"
+}
 </script>

@@ -3,7 +3,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Projet } from '@prisma/client';
+import type { Tables } from '~/types/database.types';
 
-const { data: projects } = useFetch<Projet[]>(`http://localhost:3000/api/projets`)
+const { data: projects } = useFetch<Tables<'projects'>[]>(`http://localhost:3000/api/projets`)
 </script>

@@ -1,5 +1,5 @@
-import { idValidator } from '~/generated/typia'
 import { serverSupabaseClient } from '#supabase/server'
+import { idValidator } from '~/generated/typia'
 
 const asNumber = (value: string) => {
     let numberValue: number
@@ -11,22 +11,27 @@ const asNumber = (value: string) => {
     }
 }
 
+type GetParam = { id: string }
+
 export default defineEventHandler(async (event) => {
     const params = idValidator(event.context.params)
     if(!params.success) {
-        throw createError({statusCode: 404, message: "Post introuvable"})
+        throw createError({statusCode: 404, message: "Projet introuvable"})
     }
 
     const supabase = await serverSupabaseClient(event)
     const id = asNumber(params.data.id)
-    
-    const { data: post, error } = await supabase
-        .from("blog")
+    if(id === null) {
+        throw createError({statusCode: 404, message: "Projet introuvable"})
+    }
+
+    const { data: projet, error } = await supabase
+        .from("projects")
         .select("*")
-        .eq(id !== null ? "id" : "slug", id ?? params.data.id)
+        .eq("id", id)
         .single()
 
-   if (error) throw createError({ statusCode: 404, message: "Post introuvable"})
+   if (error) throw createError({ statusCode: 404, message: "Projet introuvable"})
 
-    return post
+    return projet
 })

@@ -1,46 +1,36 @@
-// server/api/experiences/[id].put.ts
-import { H3Event } from 'h3'
-import prisma from '~/server/utils/prisma'
-import { ExperienceUpdateInputObjectSchema } from '~/prisma/generated/schemas'
-import { checkAuth } from '~/server/utils/auth'
-import { z } from 'zod'
+import { serverSupabaseClient } from '#supabase/server';
+import { experienceUpdateValidator, idValidator } from '~/generated/typia';
 
-const paramsSchema = z.object({
-    id: z.string()
-})
-
-export default defineEventHandler(async (event: H3Event) => {
-    await checkAuth(event);
-
-    const params = paramsSchema.safeParse(event.context.params)
+export default defineEventHandler(async (event) => {
+    const params = idValidator(event.context.params)
     if(!params.success) {
-        throw createError({statusCode: 404, message: "Page introuvable"})
+        throw createError({statusCode: 404, message: "Expérience introuvable"})
     }
     const { id } = params.data;
-    const experienceId = parseInt(id, 10);
+    const supabase = await serverSupabaseClient(event);
 
-    if (isNaN(experienceId)) {
-        throw createError({
-            statusCode: 400,
-            message: 'ID invalide fourni'
-        });
-    }
+    const { data: experience, error } = await supabase
+        .from("experiences")
+        .select("*")
+        .eq("id", parseInt(id, 10))
+        .single();
+
+    if (error || !experience) throw createError({ statusCode: 404, message: "Expérience introuvable"});
 
     const body = await readBody(event);
-    const parseResult = ExperienceUpdateInputObjectSchema.safeParse(body);
+    const parseResult = experienceUpdateValidator(body);
 
     if (!parseResult.success) {
         throw createError({
             statusCode: 400,
             message: "Validation échouée",
-            data: parseResult.error.flatten().fieldErrors
+            data: parseResult.errors
         });
     }
 
-    const updatedExperience = await prisma.experience.update({
-        where: { id: experienceId },
-        data: parseResult.data
-    });
+    const {data: updatedExperience, error: updateError} = await supabase.from("experiences").update(parseResult.data).select().eq("id", parseInt(id, 10));
 
-    return updatedExperience;
+    if (updateError) throw createError({ statusCode: 500, message: "Erreur lors de la mise à jour de l'expérience" });
+
+    return updatedExperience?.[0];
 });

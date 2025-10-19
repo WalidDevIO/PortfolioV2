@@ -27,5 +27,8 @@ export default defineNuxtConfig({
   },
   css: [
     '@/assets/css/globals.css'
-  ]
+  ],
+  supabase: {
+    redirect: false
+  }
 })
