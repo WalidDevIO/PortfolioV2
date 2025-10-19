@@ -9,16 +9,13 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
-  "prisma": {
-    "seed": "bun prisma/seed.ts"
-  },
   "dependencies": {
     "@nartix/tiptap-inline-code-highlight": "^1.0.12",
     "@nuxt/icon": "1.11.0",
     "@nuxt/image": "1.10.0",
     "@nuxtjs/color-mode": "^3.5.2",
+    "@nuxtjs/supabase": "2.0.1",
     "@nuxtjs/tailwindcss": "^6.13.2",
-    "@prisma/client": "^6.5.0",
     "@tailwindcss/typography": "^0.5.16",
     "@tiptap-pro/extension-details": "^2.17.5",
     "@tiptap-pro/extension-details-content": "^2.17.5",
@@ -42,7 +39,6 @@
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.13.11",
-    "@vee-validate/zod": "^4.15.0",
     "@vueuse/core": "^13.0.0",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.1",
@@ -52,10 +48,7 @@
     "jsonwebtoken": "^9.0.2",
     "lowlight": "^3.3.0",
     "lucide-vue-next": "^0.483.0",
-    "mysql2": "^3.14.0",
     "nuxt": "^3.16.1",
-    "prisma": "^6.5.0",
-    "prisma-zod-generator": "^0.8.13",
     "reka-ui": "^2.1.0",
     "shadcn-nuxt": "1.0.3",
     "showdown": "^2.1.0",
@@ -65,11 +58,11 @@
     "vaul-vue": "^0.4.1",
     "vee-validate": "^4.15.0",
     "vue": "^3.5.13",
-    "vue-router": "^4.5.0",
-    "zod": "^3.24.2"
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
     "@types/showdown": "^2.0.6",
+    "typia": "^9.7.2",
     "sass-embedded": "^1.86.0"
   }
 }

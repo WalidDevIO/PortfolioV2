@@ -1,40 +1,34 @@
-import { type Post } from "@prisma/client"
-import { z } from "zod"
+import typia from "typia"
+import { serverSupabaseClient } from '#supabase/server'
 
-const paramsSchema = z.object({
-    id: z.string()
-})
-
-const isNumber = (value: any) => {
-    value = parseInt(value)
-    return isFinite(value) && !isNaN(value)
+const asNumber = (value: string) => {
+    let numberValue: number
+    try {
+        numberValue = parseInt(value, 10)
+        return isFinite(numberValue) && !isNaN(numberValue) ? numberValue : null
+    } catch {
+        return null
+    }
 }
 
+type GetParam = { id: string }
+
 export default defineEventHandler(async (event) => {
-    const params = paramsSchema.safeParse(event.context.params)
+    const params = typia.validate<GetParam>(event.context.params)
     if(!params.success) {
-        throw createError({statusCode: 404, message: "Page introuvable"})
+        throw createError({statusCode: 404, message: "Post introuvable"})
     }
 
-    let post: Post|null = null
+    const supabase = await serverSupabaseClient(event)
+    const id = asNumber(params.data.id)
+    
+    const { data: post, error } = await supabase
+        .from("blog")
+        .select("*")
+        .eq(id !== null ? "id" : "slug", id ?? params.data.id)
+        .single()
 
-    if(isNumber(params.data.id)) {
-        await checkAuth(event);
-        post = await prisma.post.findFirst({
-            where: {
-                id: parseInt(params.data.id)
-            }
-        })
-    } else {
-        post = await prisma.post.findFirst({
-            where: {
-                published: true,
-                slug: params.data.id
-            }
-        })
-    }
-
-   if (!post) throw createError({ statusCode: 404, message: "Page introuvable"})
+   if (error) throw createError({ statusCode: 404, message: "Post introuvable"})
 
     return post
 })

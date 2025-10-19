@@ -1,45 +1,39 @@
-import { H3Event } from 'h3'
-import prisma from '~/server/utils/prisma'
-import { PostUpdateInputObjectSchema } from '~/prisma/generated/schemas'
-import { checkAuth } from '~/server/utils/auth'
-import { z } from 'zod'
+import typia from "typia";
+import { serverSupabaseClient } from '#supabase/server';
+import { type TablesUpdate } from "~/types/database.types";
 
-const paramsSchema = z.object({
-    id: z.string()
-})
+type GetParam = { id: string };
 
-export default defineEventHandler(async (event: H3Event) => {
-    await checkAuth(event);
-
-    const params = paramsSchema.safeParse(event.context.params)
+export default defineEventHandler(async (event) => {
+    const params = typia.validate<GetParam>(event.context.params)
     if(!params.success) {
-        throw createError({statusCode: 404, message: "Page introuvable"})
+        throw createError({statusCode: 404, message: "Post introuvable"})
     }
     const { id } = params.data;
+    const supabase = await serverSupabaseClient(event);
 
-    const post = await prisma.post.findFirst({
-        where: {
-            id: parseInt(id, 10)
-        }
-    })
+    const { data: post, error } = await supabase
+        .from("blog")
+        .select("*")
+        .eq("id", parseInt(id, 10))
+        .single();
 
-    if (!post) throw createError({ statusCode: 404, message: "Page introuvable"})
+    if (error || !post) throw createError({ statusCode: 404, message: "Post introuvable"});
 
     const body = await readBody(event);
-    const parseResult = PostUpdateInputObjectSchema.safeParse(body);
+    const parseResult = typia.validate<TablesUpdate<"blog">>(body);
 
     if (!parseResult.success) {
         throw createError({
             statusCode: 400,
             message: "Validation échouée",
-            data: parseResult.error.flatten().fieldErrors
+            data: parseResult.errors
         });
     }
 
-    const updatedPost = await prisma.post.update({
-        where: { id: parseInt(id, 10) },
-        data: parseResult.data
-    });
+    const {data: updatedPost, error: updateError} = await supabase.from("blog").update(parseResult.data).select().eq("id", parseInt(id, 10));
 
-    return updatedPost;
+    if (updateError) throw createError({ statusCode: 500, message: "Erreur lors de la mise à jour du post" });
+
+    return updatedPost?.[0];
 });

@@ -1,12 +1,13 @@
-import prisma from '~/server/utils/prisma'
+import { supabase } from '~/server/utils/supabase'
 
 export default defineEventHandler(async () => {
-    return await prisma.post.findMany({
-        orderBy: {
-            createdAt: "desc"
-        },
-        where: {
-            published: true
-        }
-    });
+    const { data, error } = await supabase
+        .from('blog')
+        .select('*')
+        .eq('published', true)
+        .order('createdAt', { ascending: false })
+
+    if (error) throw createError({ statusCode: 500, message: error.message })
+
+    return data
 })

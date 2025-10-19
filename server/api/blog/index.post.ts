@@ -1,22 +1,22 @@
-import { defineEventHandler } from 'h3'
-import { PostCreateInputObjectSchema } from '~/prisma/generated/schemas'
-import prisma from '~/server/utils/prisma'
+import typia from 'typia'
+import { supabase, TablesInsert } from '~/server/utils/supabase'
+
+type CreatePost = TablesInsert<'blog'>
 
 export default defineEventHandler(async (event) => {
     const body = await readBody(event)
-    const parsed = PostCreateInputObjectSchema.safeParse(body)
+    const parsed = typia.validate<CreatePost>(body)
 
     if (!parsed.success) {
         throw createError({
             statusCode: 400,
             message: "Validation échouée",
-            data: parsed.error.flatten().fieldErrors
+            data: parsed.errors
         });
     }
 
-    const post = await prisma.post.create({
-        data: parsed.data
-    })
+    const post = await supabase.from('blog').insert(parsed.data)
+    if (post.error) throw createError({ statusCode: 500, message: post.error.message }) 
 
     return post
 })
