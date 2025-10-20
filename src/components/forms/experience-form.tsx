@@ -50,7 +50,7 @@ export function ExperienceForm({experience, onSubmit, flash}: ExperienceFormProp
 
     return (<>
         <Flash error={error} success={success} />
-        <Card className="w-full w-full">
+        <Card className="w-full">
             <CardHeader>
                 <CardTitle>{experience.id ? "Modifier" : "Ajouter"} une expérience</CardTitle>
             </CardHeader>

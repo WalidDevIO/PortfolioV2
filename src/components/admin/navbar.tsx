@@ -6,6 +6,7 @@ export function Navbar() {
         <h1 className="text-xl sm:text-4xl font-bold">Administration</h1>
         <div className="flex flex-row gap-2">
             <Button variant="outline" asChild><Link href="/admin/dashboard">Dashboard</Link></Button>
+            <Button variant="outline" asChild><Link href="/admin/messages">Livre d&apos;or</Link></Button>
             <Button variant="outline" asChild><Link href="/admin/files">Fichiers</Link></Button>
             <Button variant="outline" asChild><Link href="/admin/blog">Posts</Link></Button>
             <Button asChild><Link href="/admin/logout">Déconnecter</Link></Button>

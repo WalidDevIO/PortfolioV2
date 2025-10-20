@@ -1,4 +1,5 @@
 import { createClientServer } from "@/lib/supabase";
+import { getPlugins, Plugin } from "@/utils/landingTransformPlugins";
 import { Converter } from "showdown"
 
 export async function getLandingText(): Promise<string> {
@@ -11,5 +12,13 @@ export async function getLandingText(): Promise<string> {
         throw error
     }
 
-    return converter.makeHtml(data.landing_text)
+    const plugins = await getPlugins(supabase);
+    return converter.makeHtml(preformat_text(data.landing_text, plugins))
+}
+
+const preformat_text = (text: string, plugins: Plugin[]) => {
+    plugins.forEach(({ regex, transform }) => {
+        text = text.replaceAll(regex, transform)
+    })
+    return text
 }
